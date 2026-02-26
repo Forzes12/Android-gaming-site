@@ -1,0 +1,2064 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberStore - Mobile Apps & Games</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a2e;
+            --neon-cyan: #00f0ff;
+            --neon-pink: #ff00aa;
+            --neon-yellow: #f0ff00;
+            --neon-green: #00ff88;
+            --text-primary: #ffffff;
+            --text-secondary: #8888aa;
+            --border-glow: rgba(0, 240, 255, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 0, 0, 0.1) 2px,
+                rgba(0, 0, 0, 0.1) 4px
+            );
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 12px 16px;
+            background: rgba(10, 10, 15, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-glow);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        @keyframes neonPulse {
+            0%, 100% {
+                text-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan);
+            }
+            50% {
+                text-shadow: 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-cyan), 0 0 60px var(--neon-cyan);
+            }
+        }
+
+        @keyframes neonPulsePink {
+            0%, 100% {
+                text-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink);
+            }
+            50% {
+                text-shadow: 0 0 20px var(--neon-pink), 0 0 40px var(--neon-pink), 0 0 60px var(--neon-pink);
+            }
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--neon-cyan);
+            animation: neonPulse 2s ease-in-out infinite;
+            white-space: nowrap;
+        }
+
+        .logo span {
+            color: var(--neon-pink);
+            animation: neonPulsePink 2s ease-in-out infinite;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 20px 10px 5px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-glow);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-box input:focus {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+        }
+
+        .main-content {
+            padding-top: 80px;
+            padding-bottom: 100px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .featured-section {
+            padding: 0 16px;
+            margin-bottom: 24px;
+        }
+
+        .featured-banner {
+            position: relative;
+            width: 100%;
+            height: 280px;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border-glow);
+        }
+
+        .featured-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .featured-slide.active {
+            opacity: 1;
+        }
+
+        .featured-slide-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .featured-slide-gradient {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(10, 10, 15, 0.95) 0%, rgba(10, 10, 15, 0.3) 60%, transparent 100%);
+        }
+
+        .featured-content {
+            position: relative;
+            padding: 20px;
+            z-index: 2;
+        }
+
+        .featured-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            background: var(--neon-pink);
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .featured-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .featured-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .featured-btn {
+            padding: 10px 24px;
+            background: transparent;
+            border: 2px solid var(--neon-cyan);
+            border-radius: 8px;
+            color: var(--neon-cyan);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .featured-btn:hover {
+            background: var(--neon-cyan);
+            color: var(--bg-primary);
+            box-shadow: 0 0 30px var(--neon-cyan);
+        }
+
+        .featured-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .featured-download {
+            background: var(--neon-green);
+            color: var(--bg-primary);
+            border-color: var(--neon-green);
+        }
+
+        .featured-download:hover {
+            box-shadow: 0 0 30px var(--neon-green);
+        }
+
+        .banner-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .banner-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .banner-dot.active {
+            background: var(--neon-cyan);
+            box-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .categories-section {
+            padding: 0 16px;
+            margin-bottom: 20px;
+        }
+
+        .categories-scroll {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            scrollbar-width: none;
+        }
+
+        .categories-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-pill {
+            padding: 8px 20px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-glow);
+            border-radius: 20px;
+            color: var(--text-secondary);
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .category-pill:hover {
+            border-color: var(--neon-cyan);
+            color: var(--neon-cyan);
+        }
+
+        .category-pill.active {
+            background: var(--neon-cyan);
+            border-color: var(--neon-cyan);
+            color: var(--bg-primary);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+        }
+
+        .tabs-section {
+            padding: 0 16px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 14px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-glow);
+            border-radius: 12px;
+            color: var(--text-secondary);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .tab-btn:hover {
+            border-color: var(--neon-cyan);
+            color: var(--neon-cyan);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.1), rgba(255, 0, 170, 0.1));
+            border-color: var(--neon-cyan);
+            color: var(--neon-cyan);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+        }
+
+        .tab-icon {
+            font-size: 18px;
+        }
+
+        .content-section {
+            padding: 0 16px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .see-all {
+            color: var(--neon-cyan);
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .see-all:hover {
+            text-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        @media (min-width: 768px) {
+            .content-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .content-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .app-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .app-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 8px 30px rgba(0, 240, 255, 0.2);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 12px;
+        }
+
+        .card-header {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .card-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            overflow: hidden;
+            flex-shrink: 0;
+            background: var(--bg-secondary);
+        }
+
+        .card-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .card-category {
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        .card-right-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 4px;
+        }
+
+        .card-rating {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .star {
+            color: var(--neon-yellow);
+            font-size: 14px;
+        }
+
+        .star.empty {
+            color: var(--text-secondary);
+            opacity: 0.3;
+        }
+
+        .rating-value {
+            font-size: 12px;
+            color: var(--text-primary);
+            margin-left: 2px;
+            font-weight: 600;
+        }
+
+        .card-buttons {
+            display: flex;
+            gap: 6px;
+        }
+
+        .get-btn, .watch-btn {
+            padding: 6px 12px;
+            font-size: 11px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .get-btn {
+            background: transparent;
+            border: 1px solid var(--neon-green);
+            color: var(--neon-green);
+        }
+
+        .get-btn:hover {
+            background: var(--neon-green);
+            color: var(--bg-primary);
+            box-shadow: 0 0 15px var(--neon-green);
+        }
+
+        .watch-btn {
+            background: transparent;
+            border: 1px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+        }
+
+        .watch-btn:hover {
+            background: var(--neon-cyan);
+            color: var(--bg-primary);
+            box-shadow: 0 0 15px var(--neon-cyan);
+        }
+
+        .downloads {
+            font-size: 12px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 24px;
+            max-width: 400px;
+            width: 90%;
+            border: 1px solid var(--border-glow);
+            transform: scale(0.9);
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .modal-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: var(--bg-secondary);
+        }
+
+        .modal-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .modal-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .modal-category {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .modal-rating {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-glow);
+        }
+
+        .modal-size {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .modal-image-container {
+            width: 100%;
+            height: 160px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 16px;
+            background: var(--bg-secondary);
+        }
+
+        .modal-main-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .modal-system-req {
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            padding: 14px;
+            margin-bottom: 16px;
+        }
+
+        .system-req-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--neon-cyan);
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .system-req-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            margin-bottom: 6px;
+        }
+
+        .system-req-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .req-label {
+            color: var(--text-secondary);
+        }
+
+        .req-value {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .modal-download-btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: var(--neon-green);
+            border: none;
+            border-radius: 8px;
+            color: var(--bg-primary);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 10px;
+        }
+
+        .modal-download-btn:hover {
+            box-shadow: 0 0 25px var(--neon-green);
+        }
+
+        .modal-description {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .modal-close {
+            width: 100%;
+            padding: 12px;
+            background: var(--neon-cyan);
+            border: none;
+            border-radius: 8px;
+            color: var(--bg-primary);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            box-shadow: 0 0 25px var(--neon-cyan);
+        }
+
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-secondary);
+        }
+
+        .no-results-icon {
+            font-size: 60px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        .no-results-text {
+            font-size: 18px;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 12px 24px;
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--border-glow);
+            display: flex;
+            justify-content: space-around;
+            z-index: 100;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: 8px 16px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 12px;
+        }
+
+        .nav-item:hover {
+            color: var(--neon-cyan);
+        }
+
+        .nav-item.active {
+            color: var(--neon-cyan);
+            background: rgba(0, 240, 255, 0.1);
+        }
+
+        .nav-icon {
+            font-size: 22px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .content-section.hidden {
+            display: none;
+        }
+
+        .categories-section.hidden {
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            .header {
+                padding: 16px 24px;
+            }
+
+            .logo {
+                font-size: 28px;
+            }
+
+            .main-content {
+                padding: 100px 24px 120px;
+            }
+
+            .featured-banner {
+                height: 340px;
+            }
+
+            .featured-title {
+                font-size: 28px;
+            }
+
+            .featured-desc {
+                font-size: 16px;
+            }
+
+            .card-title {
+                font-size: 18px;
+            }
+
+            .card-category {
+                font-size: 12px;
+            }
+
+            .star {
+                font-size: 16px;
+            }
+
+            .get-btn, .watch-btn {
+                padding: 8px 16px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">CYBER<span>STORE</span></div>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Поиск приложений...">
+        </div>
+    </header>
+
+    <main class="main-content">
+        <section class="featured-section">
+            <div class="featured-banner">
+                <div class="featured-slide active" data-slide="0">
+                    <img class="featured-slide-bg" src="apk fille/assets/maxresdefault.jpg" alt="GTA III" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); display: none;"></div>
+                    <div class="featured-slide-gradient"></div>
+                    <div class="featured-content">
+                        <span class="featured-tag">HOT</span>
+                        <h2 class="featured-title">GTA III</h2>
+                        <p class="featured-desc">Легендарная криминальная история Liberty City</p>
+                        <div class="featured-buttons">
+                            <button class="featured-btn" onclick="showGameInfo(1)">СМОТРЕТЬ</button>
+                            <a href="https://mega.nz/file/6RtUWaia#3Ql_QITvwU-gduFlWhwQLdpvWiKMT6atPSJCwt0sJEE" download class="featured-btn featured-download">СКАЧАТЬ</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="featured-slide" data-slide="1">
+                    <img class="featured-slide-bg" src="apk fille/assets/maxresdefault (1).jpg" alt="MadOut2 BCO" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 100%); display: none;"></div>
+                    <div class="featured-slide-gradient"></div>
+                    <div class="featured-content">
+                        <span class="featured-tag" style="background: var(--neon-pink);">NEW</span>
+                        <h2 class="featured-title">MadOut2 BCO</h2>
+                        <p class="featured-desc">Крутая игра в которой ты можешь проводить время с крутой графикой</p>
+                        <div class="featured-buttons">
+                            <button class="featured-btn" onclick="showGameInfo(2)">СМОТРЕТЬ</button>
+                            <a href="https://mega.nz/file/vVkmkYbK#ip3lE9V7m4d6_PcAqkV2NMkUkCHHQPol95aRhalp4y4" download class="featured-btn featured-download">СКАЧАТЬ</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="featured-slide" data-slide="2">
+                    <img class="featured-slide-bg" src="apk fille/assets/a8bab.jpeg" alt="Bad Piggies" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #f9d423 0%, #f83600 100%); display: none;"></div>
+                    <div class="featured-slide-gradient"></div>
+                    <div class="featured-content">
+                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+                        <h2 class="featured-title">Bad Piggies Mod</h2>
+                        <p class="featured-desc">Свинки из Angry Birds строят хитрые механизмы</p>
+                        <div class="featured-buttons">
+                            <button class="featured-btn" onclick="showGameInfo(3)">СМОТРЕТЬ</button>
+                            <a href="https://mega.nz/file/vRkyhLjQ#LFL65i7Q9elzYt5m2JIgeBjSXDjXAWpqeZs8_QFAqts" download class="featured-btn featured-download">СКАЧАТЬ</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="featured-slide" data-slide="3">
+                    <img class="featured-slide-bg" src="apk fille/assets/hollow_knight_silksong_4k-1_preview.png" alt="Hollow Knight Silksong" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #f83600 100%); display: none;"></div>
+                    <div class="featured-slide-gradient"></div>
+                    <div class="featured-content">
+                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+                        <h2 class="featured-title">Hollow Knight Silksong</h2>
+                        <p class="featured-desc">Погрузитесь в таинственный мир, полный скрытых троп и забытых королевств</p>
+                        <div class="featured-buttons">
+                            <button class="featured-btn" onclick="showGameInfo(4)">СМОТРЕТЬ</button>
+                            <a href="https://mega.nz/file/6Y01BCZT#JO4TvL9cthU99-LvyUyD7YCJNhkCRK-aeRaVjykmESI" download class="featured-btn featured-download">СКАЧАТЬ</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="featured-slide" data-slide="4">
+                    <img class="featured-slide-bg" src="apk fille/assets/unnamed-_1_.png" alt="LIMBO" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
+                    <div class="featured-slide-gradient"></div>
+                    <div class="featured-content">
+                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+                        <h2 class="featured-title">LIMBO</h2>
+                        <p class="featured-desc">Логический платформер, где пользователю предстоит проявить максимум своих возможностей</p>
+                        <div class="featured-buttons">
+                            <button class="featured-btn" onclick="showGameInfo(5)">СМОТРЕТЬ</button>
+                            <a href="https://mega.nz/file/SVdhXIra#3fflr_6ZzJNTJwubvOLNfxeKuAMphWVuBOwUPeX7jt4" download class="featured-btn featured-download">СКАЧАТЬ</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="featured-slide" data-slide="5">
+                    <img class="featured-slide-bg" src="apk fille/assets/3d92fdf7ca_2.png" alt="ProStrike" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #830000 100%); display: none;"></div>
+                    <div class="featured-slide-gradient"></div>
+                    <div class="featured-content">
+                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+                        <h2 class="featured-title">ProStrike</h2>
+                        <p class="featured-desc">Мобильная версия КС го от создателя DarLog</p>
+                        <div class="featured-buttons">
+                            <button class="featured-btn" onclick="showGameInfo(6)">СМОТРЕТЬ</button>
+                            <a href="https://mega.nz/file/jF81WKqJ#UrPHNrsAe_dP_2NdU5uXsRKTi8qKPz3_qYUZKQquzIg" download class="featured-btn featured-download">СКАЧАТЬ</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="featured-slide" data-slide="6">
+                    <img class="featured-slide-bg" src="apk fille/assets/photo_2025-12-22_20-56-50.png" alt="Spaceflight Simulator" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #680808 100%); display: none;"></div>
+                    <div class="featured-slide-gradient"></div>
+                    <div class="featured-content">
+                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+                        <h2 class="featured-title">Spaceflight Simulator</h2>
+                        <p class="featured-desc">Spaceflight Simulator — это мобильная (и PC) игра-песочница про строительство ракет и исследование космоса.</p>
+                        <div class="featured-buttons">
+                            <button class="featured-btn" onclick="showGameInfo(7)">СМОТРЕТЬ</button>
+                            <a href="https://mega.nz/file/7Y1UxJwY#fysjeJdxnwsF6bI5okGCwx_yF97mpvHaMPfG10jZJlQ" download class="featured-btn featured-download">СКАЧАТЬ</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="featured-slide" data-slide="7">
+                    <img class="featured-slide-bg" src="apk fille/assets/photo_2025-12-22_22-54-16.png" alt="Drift Max Pro" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #351515 100%); display: none;"></div>
+                    <div class="featured-slide-gradient"></div>
+                    <div class="featured-content">
+                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+                        <h2 class="featured-title">Drift Max Pro</h2>
+                        <p class="featured-desc">Drift Max Pro — это мобильная игра про гонки на автомобилях с дрифтом.</p>
+                        <div class="featured-buttons">
+                            <button class="featured-btn" onclick="showGameInfo(8)">СМОТРЕТЬ</button>
+                            <a href="https://mega.nz/file/DNMgWDjR#JjTs4heO9Hdu5jkLlTrsOaE-zB_XzprrAjXCtIbEEdk" download class="featured-btn featured-download">СКАЧАТЬ</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="featured-slide" data-slide="8">
+                    <img class="featured-slide-bg" src="apk fille/assets/photo_2025-12-22_23-08-25.png" alt="My Summer Car Mobile" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
+                    <div class="featured-slide-gradient"></div>
+                    <div class="featured-content">
+                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+                        <h2 class="featured-title">My Summer Car Mobile</h2>
+                        <p class="featured-desc">My Summer Car Mobile — это мобильная игра про управление автомобилем в летнее время.</p>
+                        <div class="featured-buttons">
+                            <button class="featured-btn" onclick="showGameInfo(9)">СМОТРЕТЬ</button>
+                            <a href="https://mega.nz/file/XUEUTa6C#RRdd-tgtdGq8etrZluW2yqdSDTcYJHCFELV-hwKUu6Q" download class="featured-btn featured-download">СКАЧАТЬ</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="featured-slide" data-slide="9">
+                    <img class="featured-slide-bg" src="apk fille/assets/photo_2025-12-23_21-31-59.png" alt="Vector Classic" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
+                    <div class="featured-slide-gradient"></div>
+                    <div class="featured-content">
+                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+                        <h2 class="featured-title">Vector Classic</h2>
+                        <p class="featured-desc">Vector Classic — это мобильная игра про управление автомобилем в летнее время.</p>
+                        <div class="featured-buttons">
+                            <button class="featured-btn" onclick="showGameInfo(10)">СМОТРЕТЬ</button>
+                            <a href="https://mega.nz/file/GJcQmIKb#0xJxzzWBfp9Ih-Y4FtQLXHf2PNaC00MzddPmrFRf_1A" download class="featured-btn featured-download">СКАЧАТЬ</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="featured-slide" data-slide="10">
+                    <img class="featured-slide-bg" src="apk fille/assets/photo_2026-02-26_11-39-13.png" alt="Plants vs. Zombies 2" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
+                    <div class="featured-slide-gradient"></div>
+                    <div class="featured-content">
+                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+                        <h2 class="featured-title">Plants vs. Zombies 2</h2>
+                        <p class="featured-desc">Plants vs. Zombies 2 — это мобильная игра про управление растениями в летнее время.</p>
+                        <div class="featured-buttons">
+                            <button class="featured-btn" onclick="showGameInfo(11)">СМОТРЕТЬ</button>
+                            <a href="https://mega.nz/file/KF8GQRAT#MkD0M7ZLcQo98805dkNU25U1vSEvSkjXfgh5FxWnkUY" download class="featured-btn featured-download">СКАЧАТЬ</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="featured-slide" data-slide="11">
+                    <img class="featured-slide-bg" src="apk fille/assets/photo_2026-02-26_11-44-30.png" alt="WDAMAGE 2" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
+                    <div class="featured-slide-gradient"></div>
+                    <div class="featured-content">
+                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+                        <h2 class="featured-title">WDAMAGE 2</h2>
+                        <p class="featured-desc">WDAMAGE 2 — это мобильная игра про управление растениями в летнее время.</p>
+                        <div class="featured-buttons">
+                            <button class="featured-btn" onclick="showGameInfo(12)">СМОТРЕТЬ</button>
+                            <a href="https://mega.nz/file/WdcQ2QjK#omFsumc649iDbF5KxqFnFc6bEl5jEUosX4ws4hjj-6Q" download class="featured-btn featured-download">СКАЧАТЬ</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="featured-slide" data-slide="12">
+                    <img class="featured-slide-bg" src="apk fille/assets/photo_2026-02-26_11-49-56.png" alt="Soul Knight" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
+                    <div class="featured-slide-gradient"></div>
+                    <div class="featured-content">
+                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+                        <h2 class="featured-title">Soul Knight</h2>
+                        <p class="featured-desc">Soul Knight — это мобильная игра про управление растениями в летнее время.</p>
+                        <div class="featured-buttons">
+                            <button class="featured-btn" onclick="showGameInfo(13)">СМОТРЕТЬ</button>
+                            <a href="https://mega.nz/file/zRsyyRTC#QiSzMZjuoxHdyma7vTS33JNBaT8l4GhyVEoV3A48kic" download class="featured-btn featured-download">СКАЧАТЬ</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="featured-slide" data-slide="13">
+                    <img class="featured-slide-bg" src="apk fille/assets/unnamed-_1_.png" alt="Subway Surfers City" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
+                    <div class="featured-slide-gradient"></div>
+                    <div class="featured-content">
+                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+                        <h2 class="featured-title">Subway Surfers City 2.0.2</h2>
+                        <p class="featured-desc">Окунитесь в мир Subway City и сыграйте в новейшую бесконечную игру-раннер. Преодолевайте новые препятствия, достигайте новых высот и собирайте новых персонажей! Джейк, Трикки, Фреш и Ютани отправят вас в новые приключения в Subway Surfers City.</p>
+                        <div class="featured-buttons">
+                            <button class="featured-btn" onclick="showGameInfo(14)">СМОТРЕТЬ</button>
+                            <a href="https://mega.nz/file/fAtSyDzK#kRd0xhVLl3Vy1DcYgc6U99B2MPneJo2GfWBYD0JZlfM" download class="featured-btn featured-download">СКАЧАТЬ</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="featured-slide" data-slide="14">
+                    <img class="featured-slide-bg" src="apk fille/assets/photo_2026-02-26_17-13-38.png" alt="PES 2014" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
+                    <div class="featured-slide-gradient"></div>
+                    <div class="featured-content">
+                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+                        <h2 class="featured-title">PES 2014</h2>
+                        <p class="featured-desc">это модифицированная версия эмулятора PPSSPP со встроенным образом игры PES 2014</p>
+                        <div class="featured-buttons">
+                            <button class="featured-btn" onclick="showGameInfo(15)">СМОТРЕТЬ</button>
+                            <a href="https://mega.nz/file/fUF2xZiI#jUEu7kw6G3yn_SFG2lLfBDoqorp6T2S5l1qdMzAOa0I" download class="featured-btn featured-download">СКАЧАТЬ</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="featured-slide" data-slide="15">
+                    <img class="featured-slide-bg" src="apk fille/assets/photo_2026-02-26_17-17-43.png" alt="ULTRAKILL" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
+                    <div class="featured-slide-gradient"></div>
+                    <div class="featured-content">
+                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+                        <h2 class="featured-title">ULTRAKILL</h2>
+                        <p class="featured-desc">неофициальный порт популярного ретро-шутера с динамичным геймплеем.</p>
+                        <div class="featured-buttons">
+                            <button class="featured-btn" onclick="showGameInfo(16)">СМОТРЕТЬ</button>
+                            <a href="https://mega.nz/file/OENknDjA#DsxMBLMhMqqlmtknEoM-ret7q7DaGwCpQ8_pQlChlnE" download class="featured-btn featured-download">СКАЧАТЬ</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="featured-slide" data-slide="16">
+                    <img class="featured-slide-bg" src="apk fille/assets/photo_2026-02-26_17-24-35.png" alt="Besiege" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
+                    <div class="featured-slide-gradient"></div>
+                    <div class="featured-content">
+                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+                        <h2 class="featured-title">Besiege</h2>
+                        <p class="featured-desc">симулятор строительства с встроенной физикой. В нем вы сооружаете машины, чтобы уничтожать армии, разрушать замки и преодолевать препятствия.</p>
+                        <div class="featured-buttons">
+                            <button class="featured-btn" onclick="showGameInfo(17)">СМОТРЕТЬ</button>
+                            <a href="apk fille/Besiege+1.0.9.apk" download class="featured-btn featured-download">СКАЧАТЬ</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="featured-slide" data-slide="17">
+                    <img class="featured-slide-bg" src="apk fille/assets/photo_2026-02-26_17-28-17.png" alt="Geometry Dash" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
+                    <div class="featured-slide-gradient"></div>
+                    <div class="featured-content">
+                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+                        <h2 class="featured-title">Geometry Dash</h2>
+                        <p class="featured-desc">задорный платформер, где геймплей течет вместе с ритмичной музыкой.</p>
+                        <div class="featured-buttons">
+                            <button class="featured-btn" onclick="showGameInfo(18)">СМОТРЕТЬ</button>
+                            <a href="https://mega.nz/file/HVshEQjY#HogpqZsfe7qrqt5r4a-jn0rUwK7IhX28FJVctOeo_Dw" download class="featured-btn featured-download">СКАЧАТЬ</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="featured-slide" data-slide="18">
+                    <img class="featured-slide-bg" src="apk fille/assets/photo_2026-02-26_17-32-57.png" alt="Aerofly FS" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
+                    <div class="featured-slide-gradient"></div>
+                    <div class="featured-content">
+                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+                        <h2 class="featured-title">Aerofly FS</h2>
+                        <p class="featured-desc">полноценный авиасимулятор для Android. Точное управление разными моделями самолетов, а также вертолетов с хорошей графикой.</p>
+                        <div class="featured-buttons">
+                            <button class="featured-btn" onclick="showGameInfo(19)">СМОТРЕТЬ</button>
+                            <a href="https://mega.nz/file/aQ021DTD#XSrYEP7EQqfTPcmFhNg3Cky_uRls_X1D7eer16YK8uA" download class="featured-btn featured-download">СКАЧАТЬ</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="featured-slide" data-slide="19">
+                    <img class="featured-slide-bg" src="apk fille/assets/photo_2026-02-26_17-38-18.png" alt="Hiddify" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
+                    <div class="featured-slide-gradient"></div>
+                    <div class="featured-content">
+                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+                        <h2 class="featured-title">Hiddify</h2>
+                        <p class="featured-desc">это полностью бесплатный клиент для различных VPN-протоколов. Подходит для использования шифрованных прокси.</p>
+                        <div class="featured-buttons">
+                            <button class="featured-btn" onclick="showGameInfo(5)">СМОТРЕТЬ</button>
+                            <a href="apk fille/Hiddify+4.0.4.apk" download class="featured-btn featured-download">СКАЧАТЬ</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="featured-slide" data-slide="20">
+                    <img class="featured-slide-bg" src="apk fille/assets/photo_2026-02-26_17-43-57.png" alt="Eyes" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
+                    <div class="featured-slide-gradient"></div>
+                    <div class="featured-content">
+                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+                        <h2 class="featured-title">Eyes</h2>
+                        <p class="featured-desc">популярный старый хоррор, где вы оказываетесь в огромном старом особняке с призраком наедине.</p>
+                        <div class="featured-buttons">
+                            <button class="featured-btn" onclick="showGameInfo(20)">СМОТРЕТЬ</button>
+                            <a href="https://mega.nz/file/uA9QjQSb#wKBVIlv7MlqyQQFfghf2q3cMJqO-6SyvjHBkvQmMeuc" download class="featured-btn featured-download">СКАЧАТЬ</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="featured-slide" data-slide="21">
+                    <img class="featured-slide-bg" src="apk fille/assets/photo_2026-02-26_17-46-45.png" alt="CCleaner" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
+                    <div class="featured-slide-gradient"></div>
+                    <div class="featured-content">
+                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+                        <h2 class="featured-title">CCleaner</h2>
+                        <p class="featured-desc">одна из самых популярных утилит для оптимизации и очистки памяти.</p>
+                        <div class="featured-buttons">
+                            <button class="featured-btn" onclick="showGameInfo(6)">СМОТРЕТЬ</button>
+                            <a href="apk fille/CCleaner+Pro+26.03.0.apk" download class="featured-btn featured-download">СКАЧАТЬ</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="featured-slide" data-slide="22">
+                    <img class="featured-slide-bg" src="apk fille/assets/photo_2026-02-26_17-54-17.png" alt="Monoposto" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
+                    <div class="featured-slide-gradient"></div>
+                    <div class="featured-content">
+                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+                        <h2 class="featured-title">Monoposto</h2>
+                        <p class="featured-desc">хороший симулятор гонок на болидах Формулы-1.</p>
+                        <div class="featured-buttons">
+                            <button class="featured-btn" onclick="showGameInfo(21)">СМОТРЕТЬ</button>
+                            <a href="https://mega.nz/file/rc8xUCTA#uVXrhW_JYX7A2rTebNwQsfxbbfIfIfVoA-EvqGeqJkI" download class="featured-btn featured-download">СКАЧАТЬ</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="featured-slide" data-slide="23">
+                    <img class="featured-slide-bg" src="apk fille/assets/photo_2026-02-26_17-58-54.png" alt="Savefrom Helper" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
+                    <div class="featured-slide-gradient"></div>
+                    <div class="featured-content">
+                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+                        <h2 class="featured-title">Savefrom Helper</h2>
+                        <p class="featured-desc">официальное приложение популярного портала Savefrom для скачивания видео и аудио с различных сайтов.</p>
+                        <div class="featured-buttons">
+                            <button class="featured-btn" onclick="showGameInfo(7)">СМОТРЕТЬ</button>
+                            <a href="https://mega.nz/file/6Uc1XKYZ#wLV7OPBLlL7jr1m_4IQ3Lr1WoxODeDX7NDT7g7RdN0E" download class="featured-btn featured-download">СКАЧАТЬ</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="featured-slide" data-slide="24">
+                    <img class="featured-slide-bg" src="apk fille/assets/photo_2026-02-26_18-03-56.png" alt="Car Simulator 2" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
+                    <div class="featured-slide-gradient"></div>
+                    <div class="featured-content">
+                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+                        <h2 class="featured-title">Car Simulator 2</h2>
+                        <p class="featured-desc">реалистичный симулятор вождения на различных спортивных автомобилях. Большой открытый мир с интерактивными элементами.</p>
+                        <div class="featured-buttons">
+                            <button class="featured-btn" onclick="showGameInfo(22)">СМОТРЕТЬ</button>
+                            <a href="https://mega.nz/file/qIUinDCL#Oz8kety6dQl0z7Ni8M8biUDA6EzjW5fBW1Qx5PYDhxI" download class="featured-btn featured-download">СКАЧАТЬ</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="featured-slide" data-slide="25">
+                    <img class="featured-slide-bg" src="apk fille/assets/photo_2026-02-26_18-09-01.png" alt="Stick War Legacy" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
+                    <div class="featured-slide-gradient"></div>
+                    <div class="featured-content">
+                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+                        <h2 class="featured-title">Stick War Legacy</h2>
+                        <p class="featured-desc">управляйте своей армией в боевом порядке или играйте каждым отрядом, вы полностью контролируете каждого человечка.</p>
+                        <div class="featured-buttons">
+                            <button class="featured-btn" onclick="showGameInfo(23)">СМОТРЕТЬ</button>
+                            <a href="https://mega.nz/file/2IsiySKJ#GaSZuGJjKVI3cXNBY3dHMlsjC8uHKB_1L54y-Rt1R3c" download class="featured-btn featured-download">СКАЧАТЬ</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="featured-slide" data-slide="26">
+                    <img class="featured-slide-bg" src="apk fille/assets/photo_2026-02-26_18-15-58.png" alt="Shadow Fight 2 SE" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
+                    <div class="featured-slide-gradient"></div>
+                    <div class="featured-content">
+                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+                        <h2 class="featured-title">Shadow Fight 2 SE</h2>
+                        <p class="featured-desc">версия популярного файтинга без рекламы и ограничений.</p>
+                        <div class="featured-buttons">
+                            <button class="featured-btn" onclick="showGameInfo(24)">СМОТРЕТЬ</button>
+                            <a href="https://mega.nz/file/7Y1UxJwY#fysjeJdxnwsF6bI5okGCwx_yF97mpvHaMPfG10jZJlQ" download class="featured-btn featured-download">СКАЧАТЬ</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="featured-slide" data-slide="27">
+                    <img class="featured-slide-bg" src="apk fille/assets/photo_2026-02-26_18-20-26.png" alt="Botanicula" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
+                    <div class="featured-slide-gradient"></div>
+                    <div class="featured-content">
+                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+                        <h2 class="featured-title">Botanicula</h2>
+                        <p class="featured-desc">забавное приключение, где главные герои — «жители» большого дерева.</p>
+                        <div class="featured-buttons">
+                            <button class="featured-btn" onclick="showGameInfo(25)">СМОТРЕТЬ</button>
+                            <a href="apk fille/Botanicula+1.0.276.apk" download class="featured-btn featured-download">СКАЧАТЬ</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="featured-slide" data-slide="28">
+                    <img class="featured-slide-bg" src="apk fille/assets/photo_2026-02-26_18-25-00.png" alt="Geometry Dash Meltdown" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
+                    <div class="featured-slide-gradient"></div>
+                    <div class="featured-content">
+                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+                        <h2 class="featured-title">Geometry Dash Meltdown</h2>
+                        <p class="featured-desc">еще одна версия популярной и хардкорной игры, где нужно уворачиваться от препятствий в такт музыке. Новые уникальные уровни и многое другое.</p>
+                        <div class="featured-buttons">
+                            <button class="featured-btn" onclick="showGameInfo(26)">СМОТРЕТЬ</button>
+                            <a href="apk fille/Geometry+Dash+Meltdown+Mod+2.2.147.apk" download class="featured-btn featured-download">СКАЧАТЬ</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="featured-slide" data-slide="29">
+                    <img class="featured-slide-bg" src="apk fille/assets/photo_2026-02-26_18-29-34.png" alt="Driving School Sim" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
+                    <div class="featured-slide-gradient"></div>
+                    <div class="featured-content">
+                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+                        <h2 class="featured-title">Driving School Sim</h2>
+                        <p class="featured-desc">реалистичный симулятор городского вождения по правилам дорожного движения.</p>
+                        <div class="featured-buttons">
+                            <button class="featured-btn" onclick="showGameInfo(27)">СМОТРЕТЬ</button>
+                            <a href="apk fille/Driving+School+Sim+Mod+13.12.apk" download class="featured-btn featured-download">СКАЧАТЬ</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="featured-slide" data-slide="30">
+                    <img class="featured-slide-bg" src="apk fille/assets/photo_2026-02-26_18-34-47.png" alt="Geometry Dash SubZero" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
+                    <div class="featured-slide-gradient"></div>
+                    <div class="featured-content">
+                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+                        <h2 class="featured-title">Geometry Dash SubZero</h2>
+                        <p class="featured-desc">еще одна версия популярной и хардкорной игры, где нужно уворачиваться от препятствий в такт музыке. Новые уникальные уровни и многое другое.</p>
+                        <div class="featured-buttons">
+                            <button class="featured-btn" onclick="showGameInfo(28)">СМОТРЕТЬ</button>
+                            <a href="https://mega.nz/file/SNMEXIRD#yBztH3CTWvbyRQ8RHfDgDw996ubqO7kXKN1cBpUgpks" download class="featured-btn featured-download">СКАЧАТЬ</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="banner-dots">
+                <span class="banner-dot active" data-dot="0"></span>
+                <span class="banner-dot" data-dot="1"></span>
+                <span class="banner-dot" data-dot="2"></span>
+                <span class="banner-dot" data-dot="3"></span>
+                <span class="banner-dot" data-dot="4"></span>
+                <span class="banner-dot" data-dot="5"></span>
+                <span class="banner-dot" data-dot="6"></span>
+                <span class="banner-dot" data-dot="7"></span>
+                <span class="banner-dot" data-dot="8"></span>
+                <span class="banner-dot" data-dot="9"></span>
+                <span class="banner-dot" data-dot="10"></span>
+                <span class="banner-dot" data-dot="11"></span>
+                <span class="banner-dot" data-dot="12"></span>
+                <span class="banner-dot" data-dot="13"></span>
+                <span class="banner-dot" data-dot="14"></span>
+                <span class="banner-dot" data-dot="15"></span>
+                <span class="banner-dot" data-dot="16"></span>
+                <span class="banner-dot" data-dot="17"></span>
+                <span class="banner-dot" data-dot="18"></span>
+                <span class="banner-dot" data-dot="19"></span>
+                <span class="banner-dot" data-dot="20"></span>
+                <span class="banner-dot" data-dot="21"></span>
+                <span class="banner-dot" data-dot="22"></span>
+                <span class="banner-dot" data-dot="23"></span>
+                <span class="banner-dot" data-dot="24"></span>
+                <span class="banner-dot" data-dot="25"></span>
+                <span class="banner-dot" data-dot="26"></span>
+                <span class="banner-dot" data-dot="27"></span>
+                <span class="banner-dot" data-dot="28"></span>
+                <span class="banner-dot" data-dot="29"></span>
+                <span class="banner-dot" data-dot="30"></span>
+            </div>
+        </section>
+
+        <section class="categories-section" id="categoriesSection">
+            <div class="categories-scroll" id="categoriesScroll">
+                <!-- Категории будут динамически меняться через JavaScript -->
+            </div>
+        </section>
+
+        <section class="tabs-section">
+            <button class="tab-btn active" data-tab="games">
+                <span class="tab-icon">🎮</span>
+                <span>Игры</span>
+            </button>
+            <button class="tab-btn" data-tab="apps">
+                <span class="tab-icon">📱</span>
+                <span>Приложения</span>
+            </button>
+        </section>
+
+        <section class="content-section" id="gamesSection">
+            <div class="section-header">
+                <h3 class="section-title">Популярные игры</h3>
+                <span class="see-all">Все ></span>
+            </div>
+            <div class="content-grid" id="gamesGrid"></div>
+        </section>
+
+        <section class="content-section hidden" id="appsSection">
+            <div class="section-header">
+                <h3 class="section-title">Лучшие приложения</h3>
+                <span class="see-all">Все ></span>
+            </div>
+            <div class="content-grid" id="appsGrid"></div>
+        </section>
+    </main>
+
+    <nav class="bottom-nav">
+        <div class="nav-item active" data-nav="games">
+            <span class="nav-icon">🎮</span>
+            <span class="nav-label">Игры</span>
+        </div>
+        <div class="nav-item" data-nav="apps">
+            <span class="nav-icon">📱</span>
+            <span class="nav-label">Приложения</span>
+        </div>
+    </nav>
+
+    <div class="modal-overlay" id="gameInfoModal" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-image-container" id="modalImageContainer">
+                <img class="modal-main-image" id="modalMainImage" src="" alt="Game preview">
+            </div>
+            <div class="modal-header">
+                <div class="modal-icon" id="modalIcon"></div>
+                <div>
+                    <h3 class="modal-title" id="modalTitle">Game Name</h3>
+                    <span class="modal-category" id="modalCategory">Category</span>
+                </div>
+            </div>
+            <div class="modal-rating" id="modalRating"></div>
+            <div class="modal-size" id="modalSize">📁 Размер: 0 MB</div>
+            <p class="modal-description" id="modalDescription">Description</p>
+            <div class="modal-system-req" id="modalSystemReq">
+                <span class="system-req-title">📋 Системные требования:</span>
+                <div class="system-req-row">
+                    <span class="req-label">Android:</span>
+                    <span class="req-value" id="reqAndroid">6.0+</span>
+                </div>
+                <div class="system-req-row">
+                    <span class="req-label">Оперативная память:</span>
+                    <span class="req-value" id="reqRAM">2 GB</span>
+                </div>
+                <div class="system-req-row">
+                    <span class="req-label">Свободное место:</span>
+                    <span class="req-value" id="reqStorage">100 MB</span>
+                </div>
+            </div>
+            <a href="" class="modal-download-btn" id="modalDownloadBtn" download>СКАЧАТЬ</a>
+            <button class="modal-close" onclick="closeModal()">ЗАКРЫТЬ</button>
+        </div>
+    </div>
+
+    <script>
+        const games = [
+            { 
+                id: 1, 
+                name: "GTA III", 
+                category: "action", 
+                rating: 4.9, 
+                downloads: "964 MB", 
+                image: "apk fille/assets/maxresdefault.jpg", 
+                avatar: "apk fille/assets/gta3-lithograph_claude_2560x1600.webp", 
+                apk: "https://mega.nz/file/6RtUWaia#3Ql_QITvwU-gduFlWhwQLdpvWiKMT6atPSJCwt0sJEE", 
+                description: "Легендарная криминальная игра в открытом мире Liberty City. Грабьте банки, уходите от полиции и станьте самым разыскиваемым преступником в городе."
+            },
+            { 
+                id: 2, 
+                name: "MadOut2 BCO", 
+                category: "action", 
+                rating: 4.7, 
+                downloads: "1367.7 MB", 
+                image: "apk fille/assets/maxresdefault (1).jpg", 
+                avatar: "apk fille/assets/hqdefault (2).jpg", 
+                apk: "https://mega.nz/file/vVkmkYbK#ip3lE9V7m4d6_PcAqkV2NMkUkCHHQPol95aRhalp4y4", 
+                description: "Безумные гонки по городу с открытым миром и онлайн режимом. Участвуйте в захватывающих заездах, модернизируйте автомобили и соревнуйтесь с другими игроками в большом городе!" 
+            },
+            { 
+                id: 3, 
+                name: "Bad Piggies Mod", 
+                category: "puzzle", 
+                rating: 4.8, 
+                downloads: "194.1 MB", 
+                image: "apk fille/assets/a8bab.jpeg", 
+                avatar: "apk fille/assets/Bad_Piggies.png", 
+                apk: "https://mega.nz/file/vRkyhLjQ#LFL65i7Q9elzYt5m2JIgeBjSXDjXAWpqeZs8_QFAqts", 
+                description: "Культовая головоломка от создателей Angry Birds! Помогите зеленым свинкам построить хитрые механизмы из подручных материалов, чтобы добраться до карт и собрать все звезды. В модифицированной версии открыты все уровни и добавлены новые возможности!" 
+            },
+            { 
+                id: 4, 
+                name: "Hollow Knight Silksong", 
+                category: "action", 
+                rating: 4.8, 
+                downloads: "194.1 MB", 
+                image: "apk fille/assets/hollow_knight_silksong_4k-1_preview.png", 
+                avatar: "apk fille/assets/com_game_silksong.png", 
+                apk: "https://mega.nz/file/6Y01BCZT#JO4TvL9cthU99-LvyUyD7YCJNhkCRK-aeRaVjykmESI", 
+                description: "Погрузитесь в таинственный мир, полный скрытых троп и забытых королевств, где каждая тень может таить опасность." 
+            },
+            { 
+                id: 5, 
+                name: "LIMBO", 
+                category: "puzzle", 
+                rating: 4.8, 
+                downloads: "94.4 MB", 
+                image: "apk fille/assets/unnamed-_1_.png", 
+                avatar: "apk fille/assets/Без названия (1).jpg", 
+                apk: "https://mega.nz/file/SVdhXIra#3fflr_6ZzJNTJwubvOLNfxeKuAMphWVuBOwUPeX7jt4", 
+                description: "Логический платформер, где пользователю предстоит проявить максимум своих возможностей – это Limbo. Согласно сюжету, наш главный герой – паренек, потерявший сестру и отправившийся на ее поиск. Вот только путь будет длинным, с множеством препятствий." 
+            },
+            { 
+                id: 6, 
+                name: "ProStrike", 
+                category: "action", 
+                rating: 4.8, 
+                downloads: "1694.9 MB", 
+                image: "apk fille/assets/3d92fdf7ca_2.png", 
+                avatar: "apk fille/assets/images (2).jpg", 
+                apk: "https://mega.nz/file/jF81WKqJ#UrPHNrsAe_dP_2NdU5uXsRKTi8qKPz3_qYUZKQquzIg", 
+                description: "ProStrike это мобильная версия КС го от создателя игр про КС го DarLog ранее он создавал другую игру по типу КС го но эта версия стала легендарной" 
+            },
+            { 
+                id: 7, 
+                name: "Spaceflight Simulator", 
+                category: "simulation", 
+                rating: 4.8, 
+                downloads: "134.0 MB", 
+                image: "apk fille/assets/photo_2025-12-22_20-56-50.png", 
+                avatar: "apk fille/assets/3F3F3F__Spaceflight_Simulator.png", 
+                apk: "https://mega.nz/file/2M013Z7I#c-Jya3SUU96F9lOIHZZS0b7CbLnqgyJV48xncIekuA4", 
+                description: "Spaceflight Simulator — это мобильная (и PC) игра-песочница про строительство ракет и исследование космоса." 
+            },
+            { 
+                id: 8, 
+                name: "Drift Max Pro", 
+                category: "racing", 
+                rating: 4.9, 
+                downloads: "701.8 MB", 
+                image: "apk fille/assets/photo_2025-12-22_22-54-16.png", 
+                avatar: "apk fille/assets/unnamed.png", 
+                apk: "https://mega.nz/file/DNMgWDjR#JjTs4heO9Hdu5jkLlTrsOaE-zB_XzprrAjXCtIbEEdk", 
+                description: "Drift Max Pro — это мобильная игра про гонки на автомобилях с дрифтом." 
+            },
+            { 
+                id: 9, 
+                name: "My Summer Car Mobile", 
+                category: "simulation", 
+                rating: 4.8, 
+                downloads: "478.2 MB", 
+                image: "apk fille/assets/photo_2025-12-22_23-08-25.png", 
+                avatar: "apk fille/assets/images (3).png", 
+                apk: "https://mega.nz/file/XUEUTa6C#RRdd-tgtdGq8etrZluW2yqdSDTcYJHCFELV-hwKUu6Q", 
+                description: "My Summer Car Mobile — это мобильная игра про управление автомобилем в летнее время." 
+            },
+            { 
+                id: 10, 
+                name: "Vector Classic", 
+                category: "action", 
+                rating: 4.7, 
+                downloads: "124.9 MB", 
+                image: "apk fille/assets/photo_2025-12-23_21-31-59.png", 
+                avatar: "apk fille/assets/11155.jpg", 
+                apk: "https://mega.nz/file/GJcQmIKb#0xJxzzWBfp9Ih-Y4FtQLXHf2PNaC00MzddPmrFRf_1A", 
+                description: "Vector Classic — это мобильная игра про управление автомобилем в летнее время." 
+            },
+            { 
+                id: 11, 
+                name: "Plants vs. Zombies 2", 
+                category: "strategy", 
+                rating: 4.7, 
+                downloads: "1017.3 MB", 
+                image: "apk fille/assets/photo_2026-02-26_11-39-13.png", 
+                avatar: "apk fille/assets/hkSjvzvSnwN-TUl05LB9FQ.jpeg", 
+                apk: "https://mega.nz/file/KF8GQRAT#MkD0M7ZLcQo98805dkNU25U1vSEvSkjXfgh5FxWnkUY", 
+                description: "Plants vs. Zombies 2 — это мобильная игра про управление растениями в летнее время." 
+            },
+            { 
+                id: 12, 
+                name: "WDAMAGE 2", 
+                category: "action", 
+                rating: 4.7, 
+                downloads: "809.6 MB", 
+                image: "apk fille/assets/photo_2026-02-26_11-44-30.png", 
+                avatar: "apk fille/assets/unnamed-_2_.png", 
+                apk: "https://mega.nz/file/WdcQ2QjK#omFsumc649iDbF5KxqFnFc6bEl5jEUosX4ws4hjj-6Q", 
+                description: "WDAMAGE 2 — это мобильная игра про управление растениями в летнее время." 
+            },
+            { 
+                id: 13, 
+                name: "Soul Knight", 
+                category: "action", 
+                rating: 4.7, 
+                downloads: "539.5 MB", 
+                image: "apk fille/assets/photo_2026-02-26_11-49-56.png", 
+                avatar: "apk fille/assets/1688157936_sneg-top-p-soul-knait-avatarki-vkontakte-11.png", 
+                apk: "https://mega.nz/file/zRsyyRTC#QiSzMZjuoxHdyma7vTS33JNBaT8l4GhyVEoV3A48kic", 
+                description: "Soul Knight — это мобильная игра про управление растениями в летнее время." 
+            },
+            { 
+                id: 14, 
+                name: "Subway Surfers City 2.0.2", 
+                category: "action", 
+                rating: 4.8, 
+                downloads: "220.7 MB", 
+                image: "apk fille/assets/unnamed-_1_.png", 
+                avatar: "apk fille/assets/topic_176225_256.png", 
+                apk: "https://mega.nz/file/fAtSyDzK#kRd0xhVLl3Vy1DcYgc6U99B2MPneJo2GfWBYD0JZlfM", 
+                description: "Окунитесь в мир Subway City и сыграйте в новейшую бесконечную игру-раннер. Преодолевайте новые препятствия, достигайте новых высот и собирайте новых персонажей! Джейк, Трикки, Фреш и Ютани отправят вас в новые приключения в Subway Surfers City." 
+            },
+            { 
+                id: 15, 
+                name: "PES 2014", 
+                category: "sports", 
+                rating: 4.8, 
+                downloads: "1006.6 MB", 
+                image: "apk fille/assets/photo_2026-02-26_17-13-38.png", 
+                avatar: "apk fille/assets/733807_10151661385469327_752495984_n.png", 
+                apk: "https://mega.nz/file/fUF2xZiI#jUEu7kw6G3yn_SFG2lLfBDoqorp6T2S5l1qdMzAOa0I", 
+                description: "это модифицированная версия эмулятора PPSSPP со встроенным образом игры PES 2014" 
+            },
+            { 
+                id: 16, 
+                name: "ULTRAKILL", 
+                category: "action", 
+                rating: 4.8, 
+                downloads: "1346.3 MB", 
+                image: "apk fille/assets/photo_2026-02-26_17-17-43.png", 
+                avatar: "apk fille/assets/photo_2026-02-26_17-17-431.png", 
+                apk: "https://mega.nz/file/OENknDjA#DsxMBLMhMqqlmtknEoM-ret7q7DaGwCpQ8_pQlChlnE", 
+                description: "неофициальный порт популярного ретро-шутера с динамичным геймплеем." 
+            },
+            { 
+                id: 17, 
+                name: "Besiege", 
+                category: "simulation", 
+                rating: 4.8, 
+                downloads: "847.3 MB", 
+                image: "apk fille/assets/photo_2026-02-26_17-24-35.png", 
+                avatar: "apk fille/assets/photo_2026-02-26_17-24-351.png", 
+                apk: "https://mega.nz/file/mcMiEb4Y#7sDnSae-Yj9RZhq_aCgC2PewAd7vuefqL1yi7Mlav7k", 
+                description: "симулятор строительства с встроенной физикой. В нем вы сооружаете машины, чтобы уничтожать армии, разрушать замки и преодолевать препятствия." 
+            },
+            { 
+                id: 18, 
+                name: "Geometry Dash", 
+                category: "arcade", 
+                rating: 4.8, 
+                downloads: "160.4 MB", 
+                image: "apk fille/assets/photo_2026-02-26_17-28-17.png", 
+                avatar: "apk fille/assets/photo_2026-02-26_17-28-171.png", 
+                apk: "https://mega.nz/file/HVshEQjY#HogpqZsfe7qrqt5r4a-jn0rUwK7IhX28FJVctOeo_Dw", 
+                description: "задорный платформер, где геймплей течет вместе с ритмичной музыкой." 
+            },
+            { 
+                id: 19, 
+                name: "Aerofly FS", 
+                category: "simulation", 
+                rating: 4.8, 
+                downloads: "2409.9 MB", 
+                image: "apk fille/assets/photo_2026-02-26_17-32-57.png", 
+                avatar: "apk fille/assets/photo_2026-02-26_17-32-571.png", 
+                apk: "apk fille/Aerofly+FS+Global+Mod+01.06.01.14.apk", 
+                description: "полноценный авиасимулятор для Android. Точное управление разными моделями самолетов, а также вертолетов с хорошей графикой." 
+            },
+            { 
+                id: 20, 
+                name: "Eyes", 
+                category: "horror", 
+                rating: 4.8, 
+                downloads: "185.3 MB", 
+                image: "apk fille/assets/photo_2026-02-26_17-43-57.png", 
+                avatar: "apk fille/assets/photo_2026-02-26_17-43-571.png", 
+                apk: "https://mega.nz/file/uA9QjQSb#wKBVIlv7MlqyQQFfghf2q3cMJqO-6SyvjHBkvQmMeuc", 
+                description: "популярный старый хоррор, где вы оказываетесь в огромном старом особняке с призраком наедине." 
+            },
+            { 
+                id: 21, 
+                name: "Monoposto", 
+                category: "racing", 
+                rating: 4.8, 
+                downloads: "440.9 MB", 
+                image: "apk fille/assets/photo_2026-02-26_17-54-17.png", 
+                avatar: "apk fille/assets/photo_2026-02-26_17-54-171.png", 
+                apk: "https://mega.nz/file/rc8xUCTA#uVXrhW_JYX7A2rTebNwQsfxbbfIfIfVoA-EvqGeqJkI", 
+                description: "хороший симулятор гонок на болидах Формулы-1." 
+            },
+            { 
+                id: 22, 
+                name: "Car Simulator 2", 
+                category: "simulation", 
+                rating: 4.8, 
+                downloads: "841.6 MB", 
+                image: "apk fille/assets/photo_2026-02-26_18-03-56.png", 
+                avatar: "apk fille/assets/photo_2026-02-26_18-03-561.png", 
+                apk: "https://mega.nz/file/qIUinDCL#Oz8kety6dQl0z7Ni8M8biUDA6EzjW5fBW1Qx5PYDhxI", 
+                description: "реалистичный симулятор вождения на различных спортивных автомобилях. Большой открытый мир с интерактивными элементами." 
+            },
+            { 
+                id: 23, 
+                name: "Stick War Legacy", 
+                category: "strategy", 
+                rating: 4.8, 
+                downloads: "198.6 MB", 
+                image: "apk fille/assets/photo_2026-02-26_18-09-01.png", 
+                avatar: "apk fille/assets/photo_2026-02-26_18-09-011.png", 
+                apk: "https://mega.nz/file/2IsiySKJ#GaSZuGJjKVI3cXNBY3dHMlsjC8uHKB_1L54y-Rt1R3c", 
+                description: "управляйте своей армией в боевом порядке или играйте каждым отрядом, вы полностью контролируете каждого человечка." 
+            },
+            { 
+                id: 24, 
+                name: "Shadow Fight 2 SE", 
+                category: "action", 
+                rating: 4.8, 
+                downloads: "168.6 MB", 
+                image: "apk fille/assets/photo_2026-02-26_18-15-58.png", 
+                avatar: "apk fille/assets/photo_2026-02-26_18-15-581.png", 
+                apk: "https://mega.nz/file/7Y1UxJwY#fysjeJdxnwsF6bI5okGCwx_yF97mpvHaMPfG10jZJlQ", 
+                description: "версия популярного файтинга без рекламы и ограничений." 
+            },
+            { 
+                id: 25, 
+                name: "Botanicula", 
+                category: "puzzle", 
+                rating: 4.8, 
+                downloads: "532.4 MB", 
+                image: "apk fille/assets/photo_2026-02-26_18-20-26.png", 
+                avatar: "apk fille/assets/photo_2026-02-26_18-20-261.png", 
+                apk: "https://mega.nz/file/KNdHEYaZ#MaY0t8I-PyW1LChtl5K27sEJbea6HTFH_34bWWgaa0M", 
+                description: "забавное приключение, где главные герои — «жители» большого дерева." 
+            },
+            { 
+                id: 26, 
+                name: "Geometry Dash Meltdown", 
+                category: "arcade", 
+                rating: 4.8, 
+                downloads: "118.0 MB", 
+                image: "apk fille/assets/photo_2026-02-26_18-25-00.png", 
+                avatar: "apk fille/assets/photo_2026-02-26_18-25-001.png", 
+                apk: "https://mega.nz/file/eIkFxZrK#eZsQql_-X7wTPK8LLPUpN-RVfdW1zvWzKjj-tIbBwnk", 
+                description: "еще одна версия популярной и хардкорной игры, где нужно уворачиваться от препятствий в такт музыке. Новые уникальные уровни и многое другое." 
+            },
+            { 
+                id: 27, 
+                name: "Driving School Sim", 
+                category: "simulation", 
+                rating: 4.8, 
+                downloads: "1069.8 MB", 
+                image: "apk fille/assets/photo_2026-02-26_18-29-34.png", 
+                avatar: "apk fille/assets/photo_2026-02-26_18-29-341.png", 
+                apk: "https://mega.nz/file/OBk31S6L#2DgOOJvq5ebpZt4qz8yBMxu7tx-UbvQh7Uz1GsewskU", 
+                description: "реалистичный симулятор городского вождения по правилам дорожного движения." 
+            },
+            { 
+                id: 28, 
+                name: "Geometry Dash SubZero", 
+                category: "arcade", 
+                rating: 4.8, 
+                downloads: "119.4 MB", 
+                image: "apk fille/assets/photo_2026-02-26_18-34-47.png", 
+                avatar: "apk fille/assets/photo_2026-02-26_18-34-471.png", 
+                apk: "https://mega.nz/file/SNMEXIRD#yBztH3CTWvbyRQ8RHfDgDw996ubqO7kXKN1cBpUgpks", 
+                description: "еще одна версия популярной и хардкорной игры, где нужно уворачиваться от препятствий в такт музыке. Новые уникальные уровни и многое другое." 
+            }
+        ];
+
+        const apps = [
+            { 
+                id: 1, 
+                name: "Spotify", 
+                category: "music", 
+                rating: 4.8, 
+                downloads: "87.7 MB", 
+                image: "apk fille/assets/photo_2025-12-22_19-54-49.png", 
+                avatar: "apk fille/assets/spotify-1759471_1280.png", 
+                apk: "https://mega.nz/file/PA1Uha5Q#KMNsVVHzR28RIcoN1ZNQ2s6_P_fzf9hw1AbtjqJYOBY", 
+                description: "Spotify – популярная платформа для прослушивания музыки. С ней вы можете слушать любимые треки, создавать плейлисты и получать персонализированные рекомендации." 
+            },            
+            { 
+                id: 2, 
+                name: "ByeByeDPI VPN", 
+                category: "utilities", 
+                rating: 4.7, 
+                downloads: "2.54 MB", 
+                image: "apk fille/assets/byedpi-2025-m1.png", 
+                avatar: "apk fille/assets/byedpi-2025-m1.png", 
+                apk: "https://mega.nz/file/XNcHRCBa#ghi-YcQIn8zx35DOSHfA0RQErextOxR70ZvesO3Dlnc", 
+                description: "ByeByeDPI — это мобильное приложение для обхода DPI-фильтров в интернете." 
+            },
+            { 
+                id: 3, 
+                name: "Amnezia VPN", 
+                category: "utilities", 
+                rating: 4.7, 
+                downloads: "94.3 MB", 
+                image: "apk fille/assets/b7ae5f23-4018-473d-8265-0d083e6ca777.png", 
+                avatar: "apk fille/assets/channels4_profile (3).png", 
+                apk: "https://mega.nz/file/DEM0lSYD#8w7DtgRNdOrn_cHXjPLp5N8TlUjGxDymWLmejPZdtpE", 
+                description: "Amnezia VPN — это мобильное приложение для обхода DPI-фильтров в интернете." 
+            },
+            { 
+                id: 4, 
+                name: "Happ VPN", 
+                category: "utilities", 
+                rating: 4.7, 
+                downloads: "53.0 MB", 
+                image: "apk fille/assets/1200x630wa.jpg", 
+                avatar: "apk fille/assets/1200x630wa.jpg", 
+                apk: "https://mega.nz/file/WFtUHBIK#3r3aKX7E-axdvlLOZjgSv40NyRCpz0Vk525dFdHzVR0", 
+                description: "Happ VPN — это мобильное приложение для обхода DPI-фильтров в интернете." 
+            },
+            { 
+                id: 5, 
+                name: "Hiddify", 
+                category: "utilities", 
+                rating: 4.8, 
+                downloads: "323.4 MB", 
+                image: "apk fille/assets/photo_2026-02-26_17-38-18.png", 
+                avatar: "apk fille/assets/photo_2026-02-26_17-38-181.png", 
+                apk: "https://mega.nz/file/6JcV2RiI#uPKhWPk4G6wr0EyStS65h9upP086jk4elnQk1uMPjZQ", 
+                description: "это полностью бесплатный клиент для различных VPN-протоколов. Подходит для использования шифрованных прокси." 
+            },
+            { 
+                id: 6, 
+                name: "CCleaner", 
+                category: "utilities", 
+                rating: 4.8, 
+                downloads: "43.6 MB", 
+                image: "apk fille/assets/photo_2026-02-26_17-46-45.png", 
+                avatar: "apk fille/assets/photo_2026-02-26_17-46-451.png", 
+                apk: "https://mega.nz/file/3c9wFQAR#e4qwc0SLqUpKxqRD5WQVpFfqFYifW_ndNefVHtiQCro", 
+                description: "одна из самых популярных утилит для оптимизации и очистки памяти." 
+            },
+            { 
+                id: 7, 
+                name: "Savefrom Helper", 
+                category: "utilities", 
+                rating: 4.8, 
+                downloads: "234.4 MB", 
+                image: "apk fille/assets/photo_2026-02-26_17-58-54.png", 
+                avatar: "apk fille/assets/photo_2026-02-26_17-58-541.png", 
+                apk: "https://mega.nz/file/6Uc1XKYZ#wLV7OPBLlL7jr1m_4IQ3Lr1WoxODeDX7NDT7g7RdN0E", 
+                description: "официальное приложение популярного портала Savefrom для скачивания видео и аудио с различных сайтов." 
+            },
+        ];
+
+        let currentTab = 'games';
+        let currentCategory = 'all';
+        let currentSearch = '';
+
+        // Категории для игр
+        const gameCategories = [
+            { id: 'all', name: 'Все' },
+            { id: 'action', name: 'Экшн' },
+            { id: 'arcade', name: 'Аркады' },
+            { id: 'puzzle', name: 'Головоломки' },
+            { id: 'racing', name: 'Гонки' },
+            { id: 'simulation', name: 'Симуляторы' },
+            { id: 'sports', name: 'Спорт' },
+            { id: 'strategy', name: 'Стратегии' },
+            { id: 'horror', name: 'Хорроры' }
+        ];
+
+        // Категории для приложений
+        const appCategories = [
+            { id: 'all', name: 'Все' },
+            { id: 'music', name: 'Музыка' },
+            { id: 'utilities', name: 'Утилиты' },
+            { id: 'social', name: 'Соцсети' },
+            { id: 'photo', name: 'Фото' },
+            { id: 'news', name: 'Новости' },
+            { id: 'security', name: 'Безопасность' }
+        ];
+
+        function renderStars(rating) {
+            let stars = '';
+            for (let i = 1; i <= 5; i++) {
+                stars += `<span class="star ${i <= Math.round(rating) ? '' : 'empty'}">★</span>`;
+            }
+            stars += `<span class="rating-value">${rating}</span>`;
+            return stars;
+        }
+
+        function renderCard(item) {
+            const imageHtml = item.image && item.image !== "" 
+                ? `<img class="card-image" src="${item.image}" alt="${item.name}" onerror="this.style.display='none';">`
+                : `<div class="card-image" style="background: var(--bg-secondary);"></div>`;
+            
+            const avatarHtml = item.avatar && item.avatar !== "" 
+                ? `<img src="${item.avatar}" alt="avatar" onerror="this.style.display='none';">`
+                : '';
+            
+            const downloadUrl = item.apk || '#';
+            const downloadBtn = item.apk && item.apk !== "" 
+                ? `<a href="${downloadUrl}" class="get-btn" download>СКАЧАТЬ</a>`
+                : `<button class="get-btn">ПОЛУЧИТЬ</button>`;
+            
+            const watchBtn = `<button class="watch-btn" onclick="showGameInfo(${item.id})">СМОТРЕТЬ</button>`;
+            
+            return `
+                <div class="app-card" data-category="${item.category}">
+                    ${imageHtml}
+                    <div class="card-content">
+                        <div class="card-header">
+                            <div class="card-icon">${avatarHtml}</div>
+                            <div class="card-info">
+                                <h4 class="card-title">${item.name}</h4>
+                                <span class="card-category">${getCategoryName(item.category)}</span>
+                            </div>
+                            <div class="card-right-info">
+                                <div class="card-rating">
+                                    ${renderStars(item.rating)}
+                                </div>
+                                <div class="card-buttons">
+                                    ${watchBtn}
+                                    ${downloadBtn}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="downloads">📁 ${item.downloads}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function showGameInfo(id) {
+            const item = games.find(g => g.id === id) || apps.find(a => a.id === id);
+            if (!item) return;
+            
+            const modal = document.getElementById('gameInfoModal');
+            const modalIcon = document.getElementById('modalIcon');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalCategory = document.getElementById('modalCategory');
+            const modalRating = document.getElementById('modalRating');
+            const modalSize = document.getElementById('modalSize');
+            const modalDescription = document.getElementById('modalDescription');
+            const modalMainImage = document.getElementById('modalMainImage');
+            const modalDownloadBtn = document.getElementById('modalDownloadBtn');
+            const reqAndroid = document.getElementById('reqAndroid');
+            const reqRAM = document.getElementById('reqRAM');
+            const reqStorage = document.getElementById('reqStorage');
+            
+            if (item.image && item.image !== "") {
+                modalMainImage.src = item.image;
+                modalMainImage.style.display = 'block';
+            } else {
+                modalMainImage.style.display = 'none';
+            }
+            
+            const avatarHtml = item.avatar && item.avatar !== "" 
+                ? `<img src="${item.avatar}" alt="avatar" onerror="this.style.display='none';">`
+                : '';
+            modalIcon.innerHTML = avatarHtml;
+            
+            modalTitle.textContent = item.name;
+            modalCategory.textContent = getCategoryName(item.category);
+            modalRating.innerHTML = renderStars(item.rating);
+            modalSize.textContent = `📁 Размер: ${item.downloads}`;
+            modalDescription.textContent = item.description || 'Описание недоступно.';
+            
+            if (item.apk && item.apk !== "") {
+                modalDownloadBtn.href = item.apk;
+                modalDownloadBtn.classList.remove('no-apk');
+                modalDownloadBtn.textContent = 'СКАЧАТЬ';
+            } else {
+                modalDownloadBtn.href = '#';
+                modalDownloadBtn.classList.add('no-apk');
+                modalDownloadBtn.textContent = 'ПОЛУЧИТЬ';
+            }
+            
+            const sizeNum = parseFloat(item.downloads);
+            reqAndroid.textContent = sizeNum > 500 ? '7.0+' : '6.0+';
+            reqRAM.textContent = sizeNum > 300 ? '4 GB' : '2 GB';
+            reqStorage.textContent = item.downloads;
+            
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('gameInfoModal').classList.remove('active');
+        }
+
+        function getCategoryName(category) {
+            const names = {
+                // Игровые категории
+                'action': 'Экшн',
+                'arcade': 'Аркады',
+                'puzzle': 'Головоломки',
+                'racing': 'Гонки',
+                'simulation': 'Симуляторы',
+                'sports': 'Спорт',
+                'strategy': 'Стратегии',
+                'horror': 'Хорроры',
+                // Категории приложений
+                'music': 'Музыка',
+                'utilities': 'Утилиты',
+                'social': 'Соцсети',
+                'photo': 'Фото',
+                'news': 'Новости',
+                'security': 'Безопасность'
+            };
+            return names[category] || category;
+        }
+
+        function renderCategories() {
+            const categoriesScroll = document.getElementById('categoriesScroll');
+            const categories = currentTab === 'games' ? gameCategories : appCategories;
+            
+            categoriesScroll.innerHTML = categories.map(cat => 
+                `<span class="category-pill ${cat.id === currentCategory ? 'active' : ''}" data-category="${cat.id}">${cat.name}</span>`
+            ).join('');
+            
+            // Добавляем обработчики для новых категорий
+            document.querySelectorAll('.category-pill').forEach(pill => {
+                pill.addEventListener('click', () => {
+                    document.querySelectorAll('.category-pill').forEach(p => p.classList.remove('active'));
+                    pill.classList.add('active');
+                    currentCategory = pill.dataset.category;
+                    renderContent();
+                });
+            });
+        }
+
+        function filterItems(items) {
+            return items.filter(item => {
+                const matchesCategory = currentCategory === 'all' || item.category === currentCategory;
+                const matchesSearch = item.name.toLowerCase().includes(currentSearch.toLowerCase());
+                return matchesCategory && matchesSearch;
+            });
+        }
+
+        function renderContent() {
+            const items = currentTab === 'games' ? games : apps;
+            const filtered = filterItems(items);
+            const grid = document.getElementById(currentTab === 'games' ? 'gamesGrid' : 'appsGrid');
+            
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="no-results">
+                        <div class="no-results-icon">🔍</div>
+                        <div class="no-results-text">Ничего не найдено</div>
+                    </div>
+                `;
+            } else {
+                grid.innerHTML = filtered.map(renderCard).join('');
+            }
+        }
+
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.featured-slide');
+        const dots = document.querySelectorAll('.banner-dot');
+
+        function showSlide(index) {
+            slides.forEach(s => s.classList.remove('active'));
+            dots.forEach(d => d.classList.remove('active'));
+            slides[index].classList.add('active');
+            dots[index].classList.add('active');
+            currentSlide = index;
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+
+        setInterval(nextSlide, 4000);
+
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                showSlide(parseInt(dot.dataset.dot));
+            });
+        });
+
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentTab = btn.dataset.tab;
+                currentCategory = 'all'; // Сбрасываем категорию при смене вкладки
+                
+                document.getElementById('gamesSection').classList.toggle('hidden', currentTab !== 'games');
+                document.getElementById('appsSection').classList.toggle('hidden', currentTab !== 'apps');
+                
+                renderCategories(); // Обновляем категории
+                renderContent();
+            });
+        });
+
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            currentSearch = e.target.value;
+            renderContent();
+        });
+
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', () => {
+                document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+                
+                const nav = item.dataset.nav;
+                if (nav === 'games' || nav === 'apps') {
+                    const btn = document.querySelector(`.tab-btn[data-tab="${nav}"]`);
+                    if (btn) btn.click();
+                }
+            });
+        });
+
+        // Инициализация
+        renderCategories();
+        renderContent();
+    </script>
+</body>
+</html>
