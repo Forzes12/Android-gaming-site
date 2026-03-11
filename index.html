@@ -1288,6 +1288,20 @@
                         </div>
                     </div>
                 </div>
+                <div class="featured-slide" data-slide="31">
+                    <img class="featured-slide-bg" src="apk fille/assets/photo_2026-03-10_13-01-081.png" alt="Subnautica Below Zero" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
+                    <div class="featured-slide-gradient"></div>
+                    <div class="featured-content">
+                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+                        <h2 class="featured-title">Subnautica Below Zero</h2>
+                        <p class="featured-desc">следующая глава в истории Subnautica, игры про выживание в открытом мире на планете-океане.Вам предстоит погрузиться в ледяные воды нового арктического региона Планеты 4546B.</p>
+                        <div class="featured-buttons">
+                            <button class="featured-btn" onclick="showGameInfo(28)">СМОТРЕТЬ</button>
+                            <a href="https://mega.nz/file/MnIGWRBY#YoZsAjrrw3rmAFW4gCOwJSoW3uj3mqkiQXZKBrsRjkQ" download class="featured-btn featured-download">СКАЧАТЬ</a>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="banner-dots">
                 <span class="banner-dot active" data-dot="0"></span>
@@ -1321,6 +1335,7 @@
                 <span class="banner-dot" data-dot="28"></span>
                 <span class="banner-dot" data-dot="29"></span>
                 <span class="banner-dot" data-dot="30"></span>
+                <span class="banner-dot" data-dot="31"></span>
             </div>
         </section>
 
@@ -1713,7 +1728,18 @@
                 avatar: "apk fille/assets/photo_2026-02-26_18-34-471.png", 
                 apk: "https://mega.nz/file/SNMEXIRD#yBztH3CTWvbyRQ8RHfDgDw996ubqO7kXKN1cBpUgpks", 
                 description: "еще одна версия популярной и хардкорной игры, где нужно уворачиваться от препятствий в такт музыке. Новые уникальные уровни и многое другое." 
-            }
+            },
+            { 
+                id: 29, 
+                name: "Subnautica Below Zero", 
+                category: "adventures", 
+                rating: 4.8, 
+                downloads: "2130.4 MB", 
+                image: "apk fille/assets/photo_2026-03-10_13-01-08.png", 
+                avatar: "apk fille/assets/photo_2026-03-10_13-01-081.png", 
+                apk: "https://mega.nz/file/MnIGWRBY#YoZsAjrrw3rmAFW4gCOwJSoW3uj3mqkiQXZKBrsRjkQ", 
+                description: "следующая глава в истории Subnautica, игры про выживание в открытом мире на планете-океане.Вам предстоит погрузиться в ледяные воды нового арктического региона Планеты 4546B." 
+            },
         ];
 
         const apps = [
@@ -1810,7 +1836,8 @@
             { id: 'simulation', name: 'Симуляторы' },
             { id: 'sports', name: 'Спорт' },
             { id: 'strategy', name: 'Стратегии' },
-            { id: 'horror', name: 'Хорроры' }
+            { id: 'horror', name: 'Хорроры' },
+            { id: 'adventures', name: 'Приключения' }
         ];
 
         // Категории для приложений
@@ -1943,6 +1970,7 @@
                 'sports': 'Спорт',
                 'strategy': 'Стратегии',
                 'horror': 'Хорроры',
+                'adventures': 'Приключения',
                 // Категории приложений
                 'music': 'Музыка',
                 'utilities': 'Утилиты',
