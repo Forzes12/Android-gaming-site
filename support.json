@@ -1,0 +1,24 @@
+{
+  "social": {
+    "youtube": {
+      "name": "YouTube",
+      "url": "https://www.youtube.com/@Forzes-Stream",
+      "icon": "fab fa-youtube"
+    },
+    "vk": {
+      "name": "ВКонтакте",
+      "url": "https://vk.com/id844636088",
+      "icon": "fab fa-vk"
+    },
+    "telegram_ls": {
+      "name": "Telegram (Личные сообщения)",
+      "url": "https://t.me/Forzes_Dev",
+      "icon": "fab fa-telegram"
+    },
+    "telegram_channel": {
+      "name": "Telegram канал",
+      "url": "https://t.me/+ptO8T5KbpPoyNzli",
+      "icon": "fab fa-telegram"
+    }
+  }
+}

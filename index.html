@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --bg-primary: #0a0a0f;
@@ -99,6 +100,75 @@
         .logo span {
             color: var(--neon-pink);
             animation: neonPulsePink 2s ease-in-out infinite;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 30px 20px;
+            margin-top: 40px;
+            border-top: 1px solid var(--border-glow);
+        }
+
+        .social-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .social-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .support-label {
+            text-align: center;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px var(--neon-cyan);
+            padding-bottom: 30px;
+            letter-spacing: 2px;
+        }
+
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            color: var(--text-primary);
+            font-size: 24px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px var(--neon-cyan);
+            border-color: var(--neon-cyan);
+        }
+
+        .social-icon.vk:hover {
+            box-shadow: 0 0 20px #0077FF;
+            border-color: #0077FF;
+        }
+
+        .social-icon.youtube:hover {
+            box-shadow: 0 0 20px #FF0000;
+            border-color: #FF0000;
+        }
+
+        .social-icon.telegram:hover {
+            box-shadow: 0 0 20px #0088cc;
+            border-color: #0088cc;
         }
 
         .search-box input {
@@ -1373,17 +1443,6 @@
         </section>
     </main>
 
-    <nav class="bottom-nav">
-        <div class="nav-item active" data-nav="games">
-            <span class="nav-icon">🎮</span>
-            <span class="nav-label">Игры</span>
-        </div>
-        <div class="nav-item" data-nav="apps">
-            <span class="nav-icon">📱</span>
-            <span class="nav-label">Приложения</span>
-        </div>
-    </nav>
-
     <div class="modal-overlay" id="gameInfoModal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <div class="modal-image-container" id="modalImageContainer">
@@ -2088,5 +2147,33 @@
         renderCategories();
         renderContent();
     </script>
+    
+    <div class="social-links">
+        <div class="social-item">
+            <a href="https://www.youtube.com/@Forzes-Stream" target="_blank" class="social-icon youtube" title="YouTube">
+                <i class="fab fa-youtube"></i>
+            </a>
+            <span class="social-label">YouTube</span>
+        </div>
+        <div class="social-item">
+            <a href="https://vk.com/id844636088" target="_blank" class="social-icon vk">
+                <i class="fab fa-vk"></i>
+            </a>
+            <span class="social-label">VK</span>
+        </div>
+        <div class="social-item">
+            <a href="https://t.me/Forzes_Dev" class="social-icon telegram" title="Личные сообщения">
+                <i class="fab fa-telegram"></i>
+            </a>
+            <span class="social-label">ЛС</span>
+        </div>
+        <div class="social-item">
+            <a href="https://t.me/+ptO8T5KbpPoyNzli" class="social-icon telegram" title="Телеграмм канал">
+                <i class="fab fa-telegram-plane"></i>
+            </a>
+            <span class="social-label">Канал</span>
+        </div>
+    </div>
+    <p class="support-label">Поддержка</p>
 </body>
 </html>
