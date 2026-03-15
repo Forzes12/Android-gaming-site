@@ -638,9 +638,16 @@
             padding: 24px;
             max-width: 400px;
             width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            scrollbar-width: none;
             border: 1px solid var(--border-glow);
             transform: scale(0.9);
             transition: all 0.3s ease;
+        }
+
+        .modal-content::-webkit-scrollbar {
+            display: none;
         }
 
         .modal-overlay.active .modal-content {
@@ -660,6 +667,7 @@
             border-radius: 12px;
             overflow: hidden;
             background: var(--bg-secondary);
+            cursor: pointer;
         }
 
         .modal-icon img {
@@ -711,6 +719,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            cursor: pointer;
         }
 
         .modal-system-req {
@@ -771,6 +780,14 @@
             box-shadow: 0 0 25px var(--neon-green);
         }
 
+        #modalDownloadBtn2 {
+            background: var(--neon-cyan);
+        }
+
+        #modalDownloadBtn2:hover {
+            box-shadow: 0 0 25px var(--neon-cyan);
+        }
+
         .modal-description {
             font-size: 14px;
             line-height: 1.6;
@@ -795,6 +812,54 @@
 
         .modal-close:hover {
             box-shadow: 0 0 25px var(--neon-cyan);
+        }
+
+        .fullscreen-viewer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .fullscreen-viewer.active {
+            display: flex;
+        }
+
+        .fullscreen-image {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .fullscreen-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 50%;
+            color: var(--text-primary);
+            font-size: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .fullscreen-close:hover {
+            background: var(--neon-cyan);
+            color: var(--bg-primary);
         }
 
         .no-results {
@@ -1372,6 +1437,21 @@
                         </div>
                     </div>
                 </div>
+                <div class="featured-slide" data-slide="32">
+                    <img class="featured-slide-bg" src="apk fille/assets/photo_2026-03-15_12-00-28.png" alt="Red Dead Redemption" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
+                    <div class="featured-slide-gradient"></div>
+                    <div class="featured-content">
+                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+                        <h2 class="featured-title">Red Dead Redemption</h2>
+                        <p class="featured-desc">мобильный порт легендарного боевика в сеттинге дикого запада от создателей GTA</p>
+                        <div class="featured-buttons">
+                            <button class="featured-btn" onclick="showGameInfo(30)">СМОТРЕТЬ</button>
+                            <a href="https://mega.nz/file/1qB2RbiJ#SiBOO7ivOThNUWMRv2wwf9YiDiUusgJur5-_MWCN9R4" download class="featured-btn featured-download">СКАЧАТЬ APK1</a>
+                            <a href="https://mega.nz/file/E7xG3LTK#DzreA4yZAA5NF3o4HeczcIZTQX0YUheYLyNswhKDOe8" download class="featured-btn featured-download">СКАЧАТЬ APK2</a>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="banner-dots">
                 <span class="banner-dot active" data-dot="0"></span>
@@ -1406,6 +1486,7 @@
                 <span class="banner-dot" data-dot="29"></span>
                 <span class="banner-dot" data-dot="30"></span>
                 <span class="banner-dot" data-dot="31"></span>
+                <span class="banner-dot" data-dot="32"></span>
             </div>
         </section>
 
@@ -1446,10 +1527,10 @@
     <div class="modal-overlay" id="gameInfoModal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <div class="modal-image-container" id="modalImageContainer">
-                <img class="modal-main-image" id="modalMainImage" src="" alt="Game preview">
+                <img class="modal-main-image" id="modalMainImage" src="" alt="Game preview" onclick="showFullscreenImage(this.src)">
             </div>
             <div class="modal-header">
-                <div class="modal-icon" id="modalIcon"></div>
+                <div class="modal-icon" id="modalIcon" onclick="showFullscreenImage(this.querySelector('img')?.src)"></div>
                 <div>
                     <h3 class="modal-title" id="modalTitle">Game Name</h3>
                     <span class="modal-category" id="modalCategory">Category</span>
@@ -1474,8 +1555,15 @@
                 </div>
             </div>
             <a href="" class="modal-download-btn" id="modalDownloadBtn" download>СКАЧАТЬ</a>
+            <a href="" class="modal-download-btn" id="modalDownloadBtn2" download>СКАЧАТЬ 2</a>
             <button class="modal-close" onclick="closeModal()">ЗАКРЫТЬ</button>
         </div>
+    </div>
+
+    <!-- Fullscreen Image Viewer -->
+    <div class="fullscreen-viewer" id="fullscreenViewer" onclick="closeFullscreen()">
+        <img class="fullscreen-image" id="fullscreenImage" src="" alt="Fullscreen preview">
+        <button class="fullscreen-close" onclick="closeFullscreen()">×</button>
     </div>
 
     <script>
@@ -1799,6 +1887,18 @@
                 apk: "https://mega.nz/file/MnIGWRBY#YoZsAjrrw3rmAFW4gCOwJSoW3uj3mqkiQXZKBrsRjkQ", 
                 description: "следующая глава в истории Subnautica, игры про выживание в открытом мире на планете-океане.Вам предстоит погрузиться в ледяные воды нового арктического региона Планеты 4546B." 
             },
+            { 
+                id: 30, 
+                name: "Red Dead Redemption", 
+                category: "adventures", 
+                rating: 4.8, 
+                downloads: "(APK 1) 3562.3 MB, (APK 2) 2758.1 MB", 
+                image: "apk fille/assets/photo_2026-03-15_12-00-28.png", 
+                avatar: "apk fille/assets/photo_2026-03-15_12-00-281.png", 
+                apk: "https://mega.nz/file/1qB2RbiJ#SiBOO7ivOThNUWMRv2wwf9YiDiUusgJur5-_MWCN9R4", 
+                apk2: "https://mega.nz/file/E7xG3LTK#DzreA4yZAA5NF3o4HeczcIZTQX0YUheYLyNswhKDOe8", 
+                description: "мобильный порт легендарного боевика в сеттинге дикого запада от создателей GTA" 
+            },
         ];
 
         const apps = [
@@ -1974,6 +2074,7 @@
             const modalDescription = document.getElementById('modalDescription');
             const modalMainImage = document.getElementById('modalMainImage');
             const modalDownloadBtn = document.getElementById('modalDownloadBtn');
+            const modalDownloadBtn2 = document.getElementById('modalDownloadBtn2');
             const reqAndroid = document.getElementById('reqAndroid');
             const reqRAM = document.getElementById('reqRAM');
             const reqStorage = document.getElementById('reqStorage');
@@ -1999,11 +2100,27 @@
             if (item.apk && item.apk !== "") {
                 modalDownloadBtn.href = item.apk;
                 modalDownloadBtn.classList.remove('no-apk');
-                modalDownloadBtn.textContent = 'СКАЧАТЬ';
+                modalDownloadBtn.textContent = 'СКАЧАТЬ APK 1';
             } else {
                 modalDownloadBtn.href = '#';
                 modalDownloadBtn.classList.add('no-apk');
                 modalDownloadBtn.textContent = 'ПОЛУЧИТЬ';
+            }
+            
+            if (item.apk2 && item.apk2 !== "") {
+                modalDownloadBtn2.href = item.apk2;
+                modalDownloadBtn2.classList.remove('no-apk');
+                modalDownloadBtn2.style.display = 'inline-block';
+                modalDownloadBtn2.textContent = 'СКАЧАТЬ APK 2';
+            } else {
+                modalDownloadBtn2.style.display = 'none';
+            }
+            
+            // Добавить инструкцию по установке для Red Dead Redemption
+            if (item.id === 30) {
+                modalDescription.innerHTML = `<strong>❗️Инструкция по установке:</strong><br><br>1) Скачайте и установите первый файл игры (APK 1).<br>2) Запустите установленный лаунчер, выдайте все необходимые разрешения и дождитесь распаковки файлов. Закройте лаунчер.<br>3) Скачайте и установите второй файл игры (APK 2) поверх первого.<br>4) Можно запускать игру и наслаждаться геймплеем.<br><br><strong>Описание:</strong> ${item.description || 'Описание недоступно.'}`;
+            } else {
+                modalDescription.textContent = item.description || 'Описание недоступно.';
             }
             
             const sizeNum = parseFloat(item.downloads);
@@ -2016,6 +2133,18 @@
 
         function closeModal() {
             document.getElementById('gameInfoModal').classList.remove('active');
+        }
+
+        function showFullscreenImage(src) {
+            if (!src || src === '') return;
+            const viewer = document.getElementById('fullscreenViewer');
+            const img = document.getElementById('fullscreenImage');
+            img.src = src;
+            viewer.classList.add('active');
+        }
+
+        function closeFullscreen() {
+            document.getElementById('fullscreenViewer').classList.remove('active');
         }
 
         function getCategoryName(category) {
