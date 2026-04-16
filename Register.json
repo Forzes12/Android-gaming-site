@@ -1,0 +1,119 @@
+{
+  "users": [
+    {
+      "username": "F0rz3s",
+      "password": "F0rz3s!@#2023^&Secsdaaes1231",
+      "type": "developer",
+      "badge": "✅",
+      "favorites": []
+    }
+  ],
+  "currentUser": null,
+  "register": function(username, password) {
+    if (!username || !password) {
+      return { success: false, message: "Заполните все поля" };
+    }
+    if (password.length < 4) {
+      return { success: false, message: "Пароль слишком короткий" };
+    }
+    const userType = /^(Dev|Developer)/i.test(username) ? "developer" : "user";
+    const userBadge = userType === "developer" ? "✅" : "";
+    const existingUser = this.users.find(u => u.username === username);
+    if (existingUser) {
+      return { success: false, message: "Пользователь уже существует" };
+    }
+    const newUser = { username, password, type: userType, badge: userBadge, favorites: [] };
+    this.users.push(newUser);
+    this.currentUser = newUser;
+    this.saveToStorage();
+    return { success: true, message: "Регистрация успешна", userType };
+  },
+  "login": function(username, password) {
+    if (!username || !password) {
+      return { success: false, message: "Заполните все поля" };
+    }
+    const user = this.users.find(u => u.username === username);
+    if (!user) {
+      return { success: false, message: "Пользователь не найден" };
+    }
+    if (user.password !== password) {
+      return { success: false, message: "Неверный пароль" };
+    }
+    this.currentUser = user;
+    this.saveToStorage();
+    return { success: true, message: "Вход выполнен", userType: user.type };
+  },
+  "logout": function() {
+    this.currentUser = null;
+    this.saveToStorage();
+    return { success: true, message: "Выход выполнен" };
+  },
+  "setBadge": function(badge) {
+    if (!this.currentUser) {
+      return { success: false, message: "Войдите в аккаунт" };
+    }
+    this.currentUser.badge = badge;
+    this.updateUserInStorage();
+    return { success: true, message: "Бейдж изменён" };
+  },
+  "addToFavorites": function(itemId) {
+    if (!this.currentUser) {
+      return { success: false, message: "Войдите в аккаунт" };
+    }
+    if (!this.currentUser.favorites.includes(itemId)) {
+      this.currentUser.favorites.push(itemId);
+      this.updateUserInStorage();
+    }
+    return { success: true, message: "Добавлено в избранное" };
+  },
+  "removeFromFavorites": function(itemId) {
+    if (!this.currentUser) {
+      return { success: false, message: "Войдите в аккаунт" };
+    }
+    const index = this.currentUser.favorites.indexOf(itemId);
+    if (index > -1) {
+      this.currentUser.favorites.splice(index, 1);
+      this.updateUserInStorage();
+    }
+    return { success: true, message: "Удалено из избранного" };
+  },
+  "isFavorite": function(itemId) {
+    if (!this.currentUser) return false;
+    return this.currentUser.favorites.includes(itemId);
+  },
+  "getFavorites": function() {
+    if (!this.currentUser) return [];
+    return this.currentUser.favorites;
+  },
+  "isLoggedIn": function() {
+    return this.currentUser !== null;
+  },
+  "getCurrentUser": function() {
+    return this.currentUser;
+  },
+  "saveToStorage": function() {
+    try {
+      localStorage.setItem("cyberstore_users", JSON.stringify(this.users));
+      localStorage.setItem("cyberstore_currentUser", this.currentUser ? JSON.stringify(this.currentUser) : null);
+    } catch (e) {
+      console.error("Error saving to storage:", e);
+    }
+  },
+  "loadFromStorage": function() {
+    try {
+      const usersData = localStorage.getItem("cyberstore_users");
+      const currentUserData = localStorage.getItem("cyberstore_currentUser");
+      if (usersData) this.users = JSON.parse(usersData);
+      if (currentUserData) this.currentUser = JSON.parse(currentUserData);
+    } catch (e) {
+      console.error("Error loading from storage:", e);
+    }
+  },
+  "updateUserInStorage": function() {
+    const userIndex = this.users.findIndex(u => u.username === this.currentUser.username);
+    if (userIndex > -1) {
+      this.users[userIndex] = this.currentUser;
+    }
+    this.saveToStorage();
+  }
+}

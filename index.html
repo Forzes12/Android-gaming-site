@@ -421,6 +421,11 @@
 
         .content-section {
             padding: 0 16px;
+            min-height: 200px;
+        }
+
+        .content-section.hidden {
+            display: none !important;
         }
 
         .section-header {
@@ -467,18 +472,13 @@
         }
 
         .app-card {
+            position: relative;
             background: var(--bg-card);
             border-radius: 16px;
             overflow: hidden;
             border: 1px solid transparent;
             transition: all 0.3s ease;
             cursor: pointer;
-        }
-
-        .app-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--neon-cyan);
-            box-shadow: 0 8px 30px rgba(0, 240, 255, 0.2);
         }
 
         .card-image {
@@ -927,11 +927,11 @@
         }
 
         .content-section.hidden {
-            display: none;
+            display: none !important;
         }
 
         .categories-section.hidden {
-            display: none;
+            display: none !important;
         }
 
         @media (min-width: 768px) {
@@ -976,13 +976,621 @@
                 font-size: 12px;
             }
         }
+
+        .auth-btn {
+            padding: 8px 16px;
+            background: transparent;
+            border: 1px solid var(--neon-cyan);
+            border-radius: 8px;
+            color: var(--neon-cyan);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .auth-btn:hover {
+            background: var(--neon-cyan);
+            color: var(--bg-primary);
+            box-shadow: 0 0 20px var(--neon-cyan);
+        }
+
+        .auth-btn.logged {
+            border-color: var(--neon-pink);
+            color: var(--neon-pink);
+        }
+
+        .auth-btn.logged:hover {
+            background: var(--neon-pink);
+            color: var(--bg-primary);
+            box-shadow: 0 0 20px var(--neon-pink);
+        }
+
+        .user-badge {
+            margin-left: 6px;
+            font-size: 14px;
+            vertical-align: middle;
+        }
+
+        .profile-usertype {
+            display: inline-block;
+            padding: 4px 12px;
+            background: var(--neon-pink);
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .badge-edit-btn {
+            margin-left: 8px;
+            background: transparent;
+            border: 1px solid var(--text-secondary);
+            border-radius: 4px;
+            color: var(--text-secondary);
+            font-size: 10px;
+            cursor: pointer;
+            padding: 2px 6px;
+            transition: all 0.3s ease;
+        }
+
+        .badge-edit-btn:hover {
+            border-color: var(--neon-cyan);
+            color: var(--neon-cyan);
+        }
+
+        .badge-input-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10001;
+        }
+
+        .badge-input-modal.active {
+            display: flex;
+        }
+
+        .badge-input-content {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 24px;
+            max-width: 350px;
+            width: 90%;
+            border: 1px solid var(--border-glow);
+        }
+
+        .badge-input-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
+            color: var(--neon-cyan);
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .badge-preview {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 16px;
+            padding: 16px;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+        }
+
+        .badge-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .badge-option {
+            padding: 8px 12px;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-glow);
+            border-radius: 6px;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin: 4px;
+        }
+
+        .badge-option.selected {
+            border-color: var(--neon-cyan);
+            background: rgba(0, 240, 255, 0.3);
+            box-shadow: 0 0 15px var(--neon-cyan);
+            transform: scale(1.1);
+        }
+
+        .badge-custom-input {
+            width: 100%;
+            padding: 12px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-glow);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 16px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .badge-custom-input:focus {
+            border-color: var(--neon-cyan);
+            outline: none;
+        }
+
+        .badge-save-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--neon-cyan);
+            border: none;
+            border-radius: 8px;
+            color: var(--bg-primary);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 8px;
+        }
+
+        .badge-cancel-btn {
+            width: 100%;
+            padding: 12px;
+            background: transparent;
+            border: 1px solid var(--text-secondary);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--bg-card);
+            border: 2px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-btn:hover {
+            box-shadow: 0 0 20px var(--neon-cyan);
+        }
+
+        .favorite-star {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 32px;
+            height: 32px;
+            background: rgba(0, 0, 0, 0.7);
+            border: none;
+            border-radius: 50%;
+            color: var(--text-secondary);
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .favorite-star:hover {
+            color: var(--neon-yellow);
+            transform: scale(1.1);
+        }
+
+        .favorite-star.active {
+            color: var(--neon-yellow);
+            text-shadow: 0 0 10px var(--neon-yellow);
+        }
+
+        .fav-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 6px 10px;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid var(--text-secondary);
+            border-radius: 20px;
+            color: var(--text-secondary);
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            z-index: 10;
+            white-space: nowrap;
+        }
+
+        .fav-btn:hover {
+            background: rgba(0, 0, 0, 0.9);
+            border-color: var(--neon-yellow);
+            color: var(--neon-yellow);
+        }
+
+        .fav-btn.active {
+            background: var(--neon-yellow);
+            border-color: var(--neon-yellow);
+            color: var(--bg-primary);
+        }
+
+        .auth-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .auth-modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .auth-modal {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 30px;
+            max-width: 400px;
+            width: 90%;
+            border: 1px solid var(--border-glow);
+            transform: scale(0.9);
+            transition: all 0.3s ease;
+        }
+
+        .auth-modal-overlay.active .auth-modal {
+            transform: scale(1);
+        }
+
+        .auth-modal-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            color: var(--neon-cyan);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .auth-input-group {
+            margin-bottom: 16px;
+        }
+
+        .auth-input-group label {
+            display: block;
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .auth-input {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-glow);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .auth-input:focus {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+        }
+
+        .auth-submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--neon-cyan);
+            border: none;
+            border-radius: 8px;
+            color: var(--bg-primary);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 12px;
+        }
+
+        .auth-submit-btn:hover {
+            box-shadow: 0 0 25px var(--neon-cyan);
+        }
+
+        .auth-switch {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .auth-switch a {
+            color: var(--neon-cyan);
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .auth-switch a:hover {
+            text-decoration: underline;
+        }
+
+        .auth-error {
+            color: #ff4444;
+            font-size: 14px;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .auth-success {
+            color: var(--neon-green);
+            font-size: 14px;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .profile-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .profile-modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .profile-modal {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 1px solid var(--border-glow);
+            transform: scale(0.9);
+            transition: all 0.3s ease;
+        }
+
+        .profile-modal-overlay.active .profile-modal {
+            transform: scale(1);
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            border: 3px solid var(--neon-cyan);
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            color: var(--neon-cyan);
+        }
+
+        .profile-username {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .profile-usertype {
+            display: inline-block;
+            padding: 4px 12px;
+            background: var(--neon-pink);
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .profile-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .profile-menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .profile-menu-item:hover {
+            border-color: var(--neon-cyan);
+        }
+
+        .profile-menu-item i {
+            font-size: 20px;
+            color: var(--neon-cyan);
+            width: 24px;
+        }
+
+        .profile-menu-item span {
+            font-size: 16px;
+            color: var(--text-primary);
+        }
+
+        .profile-menu-item .badge {
+            margin-left: auto;
+            background: var(--neon-pink);
+            color: var(--text-primary);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 12px;
+        }
+
+        .profile-close-btn {
+            width: 100%;
+            padding: 12px;
+            background: transparent;
+            border: 1px solid var(--neon-cyan);
+            border-radius: 8px;
+            color: var(--neon-cyan);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 16px;
+        }
+
+        .profile-close-btn:hover {
+            background: var(--neon-cyan);
+            color: var(--bg-primary);
+        }
+
+        .favorites-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        @media (min-width: 480px) {
+            .favorites-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .favorite-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+        }
+
+        .favorite-item img {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .favorite-item-info {
+            flex: 1;
+        }
+
+        .favorite-item-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .favorite-item-category {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .favorite-item-remove {
+            background: transparent;
+            border: none;
+            color: #ff4444;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .favorite-item-remove:hover {
+            transform: scale(1.1);
+        }
+
+        .empty-favorites {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-secondary);
+        }
+
+        .empty-favorites i {
+            font-size: 48px;
+            margin-bottom: 12px;
+            opacity: 0.5;
+        }
+
+        .profile-section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16px;
+            color: var(--neon-cyan);
+            margin-top: 20px;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-glow);
+        }
     </style>
 </head>
 <body>
     <header class="header">
         <div class="logo">CYBER<span>STORE</span></div>
-        <div class="search-box">
-            <input type="text" id="searchInput" placeholder="Поиск приложений...">
+        <div class="header-actions">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Поиск приложений...">
+            </div>
+            <button class="auth-btn" id="authBtn" onclick="openAuthModal()">ВОЙТИ</button>
+            <button class="profile-btn" id="profileBtn" onclick="openProfileModal()" style="display: none;">
+                <i class="fas fa-user"></i>
+            </button>
         </div>
     </header>
 
@@ -1581,6 +2189,100 @@
         <button class="fullscreen-close" onclick="closeFullscreen()">×</button>
     </div>
 
+    <!-- Auth Modal -->
+    <div class="auth-modal-overlay" id="authModal" onclick="closeAuthModal()">
+        <div class="auth-modal" onclick="event.stopPropagation()">
+            <h2 class="auth-modal-title" id="authModalTitle">Вход</h2>
+            <div class="auth-error" id="authError"></div>
+            <div class="auth-success" id="authSuccess"></div>
+            <div class="auth-input-group">
+                <label>Имя пользователя</label>
+                <input type="text" class="auth-input" id="authUsername" placeholder="Введите никнейм">
+            </div>
+            <div class="auth-input-group">
+                <label>Пароль</label>
+                <input type="password" class="auth-input" id="authPassword" placeholder="Введите пароль">
+            </div>
+            <button class="auth-submit-btn" id="authSubmitBtn" onclick="handleAuth()">Войти</button>
+            <p class="auth-switch">
+                <span id="authSwitchText">Нет аккаунта?</span> <a onclick="switchAuthMode()">Регистрация</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Profile Modal -->
+    <div class="profile-modal-overlay" id="profileModal" onclick="closeProfileModal()">
+        <div class="profile-modal" onclick="event.stopPropagation()">
+            <div class="profile-header">
+                <div class="profile-avatar" id="profileAvatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 8px;">
+                    <h2 class="profile-username" id="profileUsername">Username</h2>
+                    <span class="user-badge" id="profileBadge" onclick="openBadgeModal()" style="font-size: 20px; cursor: pointer;"></span>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: center;">
+                    <span class="profile-usertype" id="profileUserType">User</span>
+                </div>
+            </div>
+            <div class="profile-menu">
+                <div class="profile-menu-item" onclick="showFavorites()">
+                    <i class="fas fa-star"></i>
+                    <span>Избранное</span>
+                    <span class="badge" id="favoritesCount">0</span>
+                </div>
+                <div class="profile-menu-item" onclick="showSavedPrograms()">
+                    <i class="fas fa-save"></i>
+                    <span>Сохраненные программы</span>
+                    <span class="badge" id="savedCount">0</span>
+                </div>
+            </div>
+            <div id="profileContent"></div>
+            <button class="profile-close-btn" onclick="logout()">Выйти из аккаунта</button>
+            <button class="profile-close-btn" onclick="closeProfileModal()" style="margin-top: 8px; border-color: var(--text-secondary); color: var(--text-secondary);">Закрыть</button>
+        </div>
+    </div>
+
+    <!-- Badge Edit Modal -->
+    <div class="badge-input-modal" id="badgeModal" onclick="closeBadgeModal()">
+        <div class="badge-input-content" onclick="event.stopPropagation()">
+            <h3 class="badge-input-title">Выберите бейдж</h3>
+            <div class="badge-preview" id="badgePreview">✅</div>
+            <div class="badge-options" id="badgeOptions">
+                <span class="badge-option selected" data-badge="✓" onclick="selectBadge(this)">✓</span>
+                <span class="badge-option" data-badge="⭐" onclick="selectBadge(this)">⭐</span>
+                <span class="badge-option" data-badge="🔥" onclick="selectBadge(this)">🔥</span>
+                <span class="badge-option" data-badge="💎" onclick="selectBadge(this)">💎</span>
+                <span class="badge-option" data-badge="⚡" onclick="selectBadge(this)">⚡</span>
+                <span class="badge-option" data-badge="🎮" onclick="selectBadge(this)">🎮</span>
+                <span class="badge-option" data-badge="👑" onclick="selectBadge(this)">👑</span>
+                <span class="badge-option" data-badge="💜" onclick="selectBadge(this)">💜</span>
+                <span class="badge-option" data-badge="🔱" onclick="selectBadge(this)">🔱</span>
+                <span class="badge-option" data-badge="🎯" onclick="selectBadge(this)">🎯</span>
+                <span class="badge-option" data-badge="🚀" onclick="selectBadge(this)">🚀</span>
+                <span class="badge-option" data-badge="🔒" onclick="selectBadge(this)">🔒</span>
+                <span class="badge-option" data-badge="💀" onclick="selectBadge(this)">💀</span>
+                <span class="badge-option" data-badge="🎭" onclick="selectBadge(this)">🎭</span>
+                <span class="badge-option" data-badge="🌟" onclick="selectBadge(this)">🌟</span>
+                <span class="badge-option" data-badge="🏆" onclick="selectBadge(this)">🏆</span>
+                <span class="badge-option" data-badge="💠" onclick="selectBadge(this)">💠</span>
+                <span class="badge-option" data-badge="✳️" onclick="selectBadge(this)">✳️</span>
+                <span class="badge-option" data-badge="🔶" onclick="selectBadge(this)">🔶</span>
+                <span class="badge-option" data-badge="🎪" onclick="selectBadge(this)">🎪</span>
+                <span class="badge-option" data-badge="🤖" onclick="selectBadge(this)">🤖</span>
+                <span class="badge-option" data-badge="👨‍💻" onclick="selectBadge(this)">👨‍💻</span>
+                <span class="badge-option" data-badge="🎲" onclick="selectBadge(this)">🎲</span>
+            </div>
+            <input type="text" class="badge-custom-input" id="badgeCustomInput" placeholder="Или введите свой emoji/текст">
+            <div style="margin-bottom: 16px;">
+                <label style="display: block; font-size: 14px; color: var(--text-secondary); margin-bottom: 8px;">Или загрузите GIF/картинку:</label>
+                <input type="text" class="badge-custom-input" id="badgeGifInput" placeholder="Введите URL изображения (gif, png, jpg)">
+            </div>
+            <button class="badge-save-btn" onclick="saveBadge()">Сохранить</button>
+            <button class="badge-cancel-btn" onclick="closeBadgeModal()">Отмена</button>
+        </div>
+    </div>
+
     <script>
         const games = [
             { 
@@ -2045,48 +2747,6 @@
             return stars;
         }
 
-        function renderCard(item) {
-            const imageHtml = item.image && item.image !== "" 
-                ? `<img class="card-image" src="${item.image}" alt="${item.name}" onerror="this.style.display='none';">`
-                : `<div class="card-image" style="background: var(--bg-secondary);"></div>`;
-            
-            const avatarHtml = item.avatar && item.avatar !== "" 
-                ? `<img src="${item.avatar}" alt="avatar" onerror="this.style.display='none';">`
-                : '';
-            
-            const downloadUrl = item.apk || '#';
-            const downloadBtn = item.apk && item.apk !== "" 
-                ? `<a href="${downloadUrl}" class="get-btn" download>СКАЧАТЬ</a>`
-                : `<button class="get-btn">ПОЛУЧИТЬ</button>`;
-            
-            const watchBtn = `<button class="watch-btn" onclick="showGameInfo(${item.id})">СМОТРЕТЬ</button>`;
-            
-            return `
-                <div class="app-card" data-category="${item.category}">
-                    ${imageHtml}
-                    <div class="card-content">
-                        <div class="card-header">
-                            <div class="card-icon">${avatarHtml}</div>
-                            <div class="card-info">
-                                <h4 class="card-title">${item.name}</h4>
-                                <span class="card-category">${getCategoryName(item.category)}</span>
-                            </div>
-                            <div class="card-right-info">
-                                <div class="card-rating">
-                                    ${renderStars(item.rating)}
-                                </div>
-                                <div class="card-buttons">
-                                    ${watchBtn}
-                                    ${downloadBtn}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="downloads">📁 ${item.downloads}</div>
-                    </div>
-                </div>
-            `;
-        }
-
         function showGameInfo(id) {
             const item = games.find(g => g.id === id) || apps.find(a => a.id === id);
             if (!item) return;
@@ -2229,12 +2889,7 @@
             const grid = document.getElementById(currentTab === 'games' ? 'gamesGrid' : 'appsGrid');
             
             if (filtered.length === 0) {
-                grid.innerHTML = `
-                    <div class="no-results">
-                        <div class="no-results-icon">🔍</div>
-                        <div class="no-results-text">Ничего не найдено</div>
-                    </div>
-                `;
+                grid.innerHTML = '<div class="no-results"><div class="no-results-icon">🔍</div><div class="no-results-text">Ничего не найдено</div></div>';
             } else {
                 grid.innerHTML = filtered.map(renderCard).join('');
             }
@@ -2298,9 +2953,378 @@
             });
         });
 
+        // Auth System
+        let authMode = 'login';
+        let currentUser = null;
+        let favorites = [];
+
         // Инициализация
         renderCategories();
         renderContent();
+        checkAuth();
+
+        function checkAuth() {
+            const savedUser = localStorage.getItem('cyberstore_user');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                if (!currentUser.badge) {
+                    currentUser.badge = currentUser.type === 'developer' ? '✓' : '';
+                    const existingUsers = JSON.parse(localStorage.getItem('cyberstore_users') || '[]');
+                    const userIndex = existingUsers.findIndex(u => u.username === currentUser.username);
+                    if (userIndex > -1) {
+                        existingUsers[userIndex].badge = currentUser.badge;
+                        localStorage.setItem('cyberstore_users', JSON.stringify(existingUsers));
+                    }
+                    localStorage.setItem('cyberstore_user', JSON.stringify(currentUser));
+                }
+                favorites = currentUser.favorites || [];
+                updateAuthUI();
+            }
+        }
+
+        function updateAuthUI() {
+            const authBtn = document.getElementById('authBtn');
+            const profileBtn = document.getElementById('profileBtn');
+            
+            if (currentUser) {
+                const badge = currentUser.badge || '';
+                const badgeHtml = badge ? `<span class="user-badge" onclick="event.stopPropagation(); openBadgeModal()" style="cursor: pointer;">${badge}</span>` : '';
+                authBtn.innerHTML = currentUser.username + badgeHtml;
+                authBtn.classList.add('logged');
+                profileBtn.style.display = 'flex';
+            } else {
+                authBtn.textContent = 'ВОЙТИ';
+                authBtn.classList.remove('logged');
+                profileBtn.style.display = 'none';
+            }
+        }
+
+        function openBadgeModal() {
+            if (!currentUser) return;
+            document.getElementById('badgeModal').classList.add('active');
+            const badge = currentUser.badge || '✓';
+            document.getElementById('badgePreview').innerHTML = badge;
+            document.getElementById('badgeCustomInput').value = '';
+            document.getElementById('badgeGifInput').value = '';
+            document.querySelectorAll('.badge-option').forEach(opt => {
+                opt.classList.toggle('selected', opt.dataset.badge === '✓');
+            });
+        }
+
+        function closeBadgeModal() {
+            document.getElementById('badgeModal').classList.remove('active');
+        }
+
+        function selectBadge(el) {
+            alert('Clicked: ' + el.dataset.badge);
+            if (!el.classList.contains('badge-option')) return;
+            document.querySelectorAll('.badge-option').forEach(opt => opt.classList.remove('selected'));
+            el.classList.add('selected');
+            const badge = el.dataset.badge;
+            document.getElementById('badgePreview').textContent = badge;
+            document.getElementById('badgeCustomInput').value = badge;
+            document.getElementById('badgeGifInput').value = '';
+        }
+
+        function saveBadge() {
+            const gifUrl = document.getElementById('badgeGifInput').value.trim();
+            let badge;
+            
+            if (gifUrl) {
+                badge = `<img src="${gifUrl}" style="height: 24px; width: auto; vertical-align: middle;" onerror="this.remove()">`;
+            } else {
+                badge = document.getElementById('badgeCustomInput').value || '✓';
+            }
+            
+            currentUser.badge = badge;
+            
+            const existingUsers = JSON.parse(localStorage.getItem('cyberstore_users') || '[]');
+            const userIndex = existingUsers.findIndex(u => u.username === currentUser.username);
+            if (userIndex > -1) {
+                existingUsers[userIndex].badge = badge;
+                localStorage.setItem('cyberstore_users', JSON.stringify(existingUsers));
+            }
+            localStorage.setItem('cyberstore_user', JSON.stringify(currentUser));
+            
+            updateAuthUI();
+            closeBadgeModal();
+            openProfileModal();
+        }
+
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('badge-option')) {
+                selectBadge(e.target);
+            }
+        });
+
+        function openAuthModal() {
+            if (currentUser) {
+                openProfileModal();
+                return;
+            }
+            document.getElementById('authModal').classList.add('active');
+            document.getElementById('authError').textContent = '';
+            document.getElementById('authSuccess').textContent = '';
+            document.getElementById('authUsername').value = '';
+            document.getElementById('authPassword').value = '';
+        }
+
+        function closeAuthModal() {
+            document.getElementById('authModal').classList.remove('active');
+        }
+
+        function switchAuthMode() {
+            authMode = authMode === 'login' ? 'register' : 'login';
+            document.getElementById('authModalTitle').textContent = authMode === 'login' ? 'Вход' : 'Регистрация';
+            document.getElementById('authSubmitBtn').textContent = authMode === 'login' ? 'Войти' : 'Регистрация';
+            document.getElementById('authSwitchText').textContent = authMode === 'login' ? 'Нет аккаунта?' : 'Есть аккаунт?';
+            document.getElementById('authError').textContent = '';
+            document.getElementById('authSuccess').textContent = '';
+        }
+
+        function handleAuth() {
+            const username = document.getElementById('authUsername').value.trim();
+            const password = document.getElementById('authPassword').value;
+            const errorEl = document.getElementById('authError');
+            const successEl = document.getElementById('authSuccess');
+
+            if (!username || !password) {
+                errorEl.textContent = 'Заполните все поля';
+                return;
+            }
+
+            if (authMode === 'register') {
+                if (password.length < 4) {
+                    errorEl.textContent = 'Пароль должен быть не менее 4 символов';
+                    return;
+                }
+                const existingUsers = JSON.parse(localStorage.getItem('cyberstore_users') || '[]');
+                if (existingUsers.find(u => u.username === username)) {
+                    errorEl.textContent = 'Пользователь уже существует';
+                    return;
+                }
+                const userType = /^(Dev|Developer)/i.test(username) ? 'developer' : 'user';
+                const defaultBadge = userType === 'developer' ? '✓' : '';
+                currentUser = { username, password, type: userType, badge: defaultBadge, favorites: [] };
+                existingUsers.push(currentUser);
+                localStorage.setItem('cyberstore_users', JSON.stringify(existingUsers));
+                successEl.textContent = 'Регистрация успешна!';
+            } else {
+                const existingUsers = JSON.parse(localStorage.getItem('cyberstore_users') || '[]');
+                const user = existingUsers.find(u => u.username === username);
+                if (!user) {
+                    errorEl.textContent = 'Пользователь не найден';
+                    return;
+                }
+                if (user.password !== password) {
+                    errorEl.textContent = 'Неверный пароль';
+                    return;
+                }
+                currentUser = user;
+                if (!currentUser.badge && currentUser.type === 'developer') {
+                    currentUser.badge = '✓';
+                    const userIndex = existingUsers.findIndex(u => u.username === username);
+                    if (userIndex > -1) {
+                        existingUsers[userIndex].badge = '✓';
+                        localStorage.setItem('cyberstore_users', JSON.stringify(existingUsers));
+                    }
+                }
+                favorites = user.favorites || [];
+            }
+
+            localStorage.setItem('cyberstore_user', JSON.stringify(currentUser));
+            updateAuthUI();
+            
+            setTimeout(() => {
+                closeAuthModal();
+                renderContent();
+            }, 500);
+        }
+
+        function logout() {
+            currentUser = null;
+            favorites = [];
+            localStorage.removeItem('cyberstore_user');
+            updateAuthUI();
+            closeProfileModal();
+            renderContent();
+        }
+
+        function openProfileModal() {
+            if (!currentUser) {
+                openAuthModal();
+                return;
+            }
+            document.getElementById('profileModal').classList.add('active');
+            document.getElementById('profileUsername').textContent = currentUser.username;
+            
+            const profileBadge = document.getElementById('profileBadge');
+            if (currentUser.badge) {
+                profileBadge.textContent = currentUser.badge;
+                profileBadge.style.display = 'inline';
+            } else {
+                profileBadge.style.display = 'none';
+            }
+            
+            document.getElementById('profileUserType').textContent = currentUser.type === 'developer' ? 'Разработчик' : 'Пользователь';
+            document.getElementById('favoritesCount').textContent = favorites.length;
+            document.getElementById('savedCount').textContent = currentUser.savedPrograms ? currentUser.savedPrograms.length : 0;
+            document.getElementById('profileContent').innerHTML = '';
+        }
+
+        function closeProfileModal() {
+            document.getElementById('profileModal').classList.remove('active');
+        }
+
+        function showFavorites() {
+            const content = document.getElementById('profileContent');
+            if (favorites.length === 0) {
+                content.innerHTML = `
+                    <h3 class="profile-section-title">Избранное</h3>
+                    <div class="empty-favorites">
+                        <i class="fas fa-star"></i>
+                        <p>У вас нет избранных игр/программ</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const favoriteItems = [];
+            games.forEach(g => {
+                if (favorites.includes(g.id)) favoriteItems.push({...g, type: 'game'});
+            });
+            apps.forEach(a => {
+                if (favorites.includes(a.id)) favoriteItems.push({...a, type: 'app'});
+            });
+
+            content.innerHTML = `
+                <h3 class="profile-section-title">Избранное (${favoriteItems.length})</h3>
+                <div class="favorites-grid">
+                    ${favoriteItems.map(item => `
+                        <div class="favorite-item">
+                            <img src="${item.avatar || item.image || ''}" alt="${item.name}" onerror="this.src=''">
+                            <div class="favorite-item-info">
+                                <div class="favorite-item-name">${item.name}</div>
+                                <div class="favorite-item-category">${getCategoryName(item.category)}</div>
+                            </div>
+                            <button class="favorite-item-remove" onclick="removeFavorite(${item.id}, ${item.type === 'game' ? 'true' : 'false'})">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function showSavedPrograms() {
+            const content = document.getElementById('profileContent');
+            const saved = currentUser.savedPrograms || [];
+            if (saved.length === 0) {
+                content.innerHTML = `
+                    <h3 class="profile-section-title">Сохраненные программы</h3>
+                    <div class="empty-favorites">
+                        <i class="fas fa-save"></i>
+                        <p>У вас нет сохраненных программ</p>
+                    </div>
+                `;
+                return;
+            }
+            content.innerHTML = `<h3 class="profile-section-title">Сохраненные программы (${saved.length})</h3>`;
+        }
+
+        function removeFavorite(itemId, isGame) {
+            favorites = favorites.filter(id => id !== itemId);
+            currentUser.favorites = favorites;
+            
+            const existingUsers = JSON.parse(localStorage.getItem('cyberstore_users') || '[]');
+            const userIndex = existingUsers.findIndex(u => u.username === currentUser.username);
+            if (userIndex > -1) {
+                existingUsers[userIndex].favorites = favorites;
+                localStorage.setItem('cyberstore_users', JSON.stringify(existingUsers));
+            }
+            localStorage.setItem('cyberstore_user', JSON.stringify(currentUser));
+            
+            document.getElementById('favoritesCount').textContent = favorites.length;
+            showFavorites();
+            renderContent();
+        }
+
+        function toggleFavorite(itemId) {
+            if (!currentUser) {
+                openAuthModal();
+                return;
+            }
+
+            const index = favorites.indexOf(itemId);
+            if (index > -1) {
+                favorites.splice(index, 1);
+            } else {
+                favorites.push(itemId);
+            }
+
+            currentUser.favorites = favorites;
+            
+            const existingUsers = JSON.parse(localStorage.getItem('cyberstore_users') || '[]');
+            const userIndex = existingUsers.findIndex(u => u.username === currentUser.username);
+            if (userIndex > -1) {
+                existingUsers[userIndex].favorites = favorites;
+                localStorage.setItem('cyberstore_users', JSON.stringify(existingUsers));
+            }
+            localStorage.setItem('cyberstore_user', JSON.stringify(currentUser));
+            
+            renderContent();
+        }
+
+        function isFavorite(itemId) {
+            return currentUser && favorites.includes(itemId);
+        }
+
+        function renderCard(item) {
+            const imageHtml = item.image && item.image !== "" 
+                ? `<img class="card-image" src="${item.image}" alt="${item.name}" onerror="this.style.display='none';">`
+                : `<div class="card-image" style="background: var(--bg-secondary);"></div>`;
+            
+            const avatarHtml = item.avatar && item.avatar !== "" 
+                ? `<img src="${item.avatar}" alt="avatar" onerror="this.style.display='none';">`
+                : '';
+            
+            const downloadUrl = item.apk || '#';
+            const downloadBtn = item.apk && item.apk !== "" 
+                ? `<a href="${downloadUrl}" class="get-btn" download>СКАЧАТЬ</a>`
+                : `<button class="get-btn">ПОЛУЧИТЬ</button>`;
+            
+            const watchBtn = `<button class="watch-btn" onclick="showGameInfo(${item.id})">СМОТРЕТЬ</button>`;
+            const isFav = isFavorite(item.id);
+            const favoriteBtn = `<button class="fav-btn ${isFav ? 'active' : ''}" onclick="event.stopPropagation(); toggleFavorite(${item.id})" title="В избранное">
+                <i class="fas fa-star"></i> ${isFav ? 'В избранном' : 'В избранное'}
+            </button>`;
+            
+            return `
+                <div class="app-card" data-category="${item.category}">
+                    ${favoriteBtn}
+                    ${imageHtml}
+                    <div class="card-content">
+                        <div class="card-header">
+                            <div class="card-icon">${avatarHtml}</div>
+                            <div class="card-info">
+                                <h4 class="card-title">${item.name}</h4>
+                                <span class="card-category">${getCategoryName(item.category)}</span>
+                            </div>
+                            <div class="card-right-info">
+                                <div class="card-rating">
+                                    ${renderStars(item.rating)}
+                                </div>
+                                <div class="card-buttons">
+                                    ${watchBtn}
+                                    ${downloadBtn}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="downloads">📁 ${item.downloads}</div>
+                    </div>
+                </div>
+            `;
+        }
     </script>
     
     <div class="social-links">

@@ -1,0 +1,99 @@
+{
+  "profile": {
+    "username": null,
+    "userType": null,
+    "avatar": null,
+    "bio": "",
+    "savedPrograms": [],
+    "favorites": [],
+    "settings": {
+      "theme": "dark",
+      "notifications": true,
+      "language": "ru"
+    }
+  },
+  "updateProfile": function(data) {
+    if (!this.profile.username) {
+      return { success: false, message: "Пользователь не вошел в аккаунт" };
+    }
+    if (data.bio !== undefined) this.profile.bio = data.bio;
+    if (data.avatar !== undefined) this.profile.avatar = data.avatar;
+    this.saveToStorage();
+    return { success: true, message: "Профиль обновлен" };
+  },
+  "setUser": function(user) {
+    this.profile.username = user.username;
+    this.profile.userType = user.type;
+    this.profile.favorites = user.favorites || [];
+    this.saveToStorage();
+  },
+  "clearUser": function() {
+    this.profile.username = null;
+    this.profile.userType = null;
+    this.profile.avatar = null;
+    this.profile.bio = "";
+    this.profile.savedPrograms = [];
+    this.profile.favorites = [];
+    this.saveToStorage();
+  },
+  "getProfile": function() {
+    return this.profile;
+  },
+  "getFavorites": function() {
+    return this.profile.favorites;
+  },
+  "addFavorite": function(itemId) {
+    if (!this.profile.username) return;
+    if (!this.profile.favorites.includes(itemId)) {
+      this.profile.favorites.push(itemId);
+      this.saveToStorage();
+    }
+  },
+  "removeFavorite": function(itemId) {
+    if (!this.profile.username) return;
+    const index = this.profile.favorites.indexOf(itemId);
+    if (index > -1) {
+      this.profile.favorites.splice(index, 1);
+      this.saveToStorage();
+    }
+  },
+  "isFavorite": function(itemId) {
+    return this.profile.favorites.includes(itemId);
+  },
+  "addSavedProgram": function(programId) {
+    if (!this.profile.username) return;
+    if (!this.profile.savedPrograms.includes(programId)) {
+      this.profile.savedPrograms.push(programId);
+      this.saveToStorage();
+    }
+  },
+  "removeSavedProgram": function(programId) {
+    if (!this.profile.username) return;
+    const index = this.profile.savedPrograms.indexOf(programId);
+    if (index > -1) {
+      this.profile.savedPrograms.splice(index, 1);
+      this.saveToStorage();
+    }
+  },
+  "getSavedPrograms": function() {
+    return this.profile.savedPrograms;
+  },
+  "saveToStorage": function() {
+    try {
+      localStorage.setItem("cyberstore_profile", JSON.stringify(this.profile));
+    } catch (e) {
+      console.error("Error saving profile to storage:", e);
+    }
+  },
+  "loadFromStorage": function() {
+    try {
+      const profileData = localStorage.getItem("cyberstore_profile");
+      if (profileData) {
+        const loaded = JSON.parse(profileData);
+        this.profile = { ...this.profile, ...loaded };
+      }
+    } catch (e) {
+      console.error("Error loading profile from storage:", e);
+    }
+  }
+}
