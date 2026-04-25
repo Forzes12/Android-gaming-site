@@ -844,6 +844,36 @@
             color: var(--bg-primary);
         }
 
+        .modal-save-btn {
+            position: absolute;
+            top: 20px;
+            right: 140px;
+            padding: 8px 14px;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid var(--text-secondary);
+            border-radius: 20px;
+            color: var(--text-secondary);
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            z-index: 10;
+        }
+
+        .modal-save-btn:hover {
+            background: rgba(0, 0, 0, 0.9);
+            border-color: var(--neon-green);
+            color: var(--neon-green);
+        }
+
+        .modal-save-btn.active {
+            background: var(--neon-green);
+            border-color: var(--neon-green);
+            color: var(--bg-primary);
+        }
+
         .fullscreen-viewer {
             position: fixed;
             top: 0;
@@ -1209,6 +1239,15 @@
             box-shadow: 0 0 20px var(--neon-cyan);
         }
 
+        #savedBtn {
+            border-color: var(--neon-green);
+            color: var(--neon-green);
+        }
+
+        #savedBtn:hover {
+            box-shadow: 0 0 20px var(--neon-green);
+        }
+
         .favorite-star {
             position: absolute;
             top: 10px;
@@ -1427,6 +1466,45 @@
         }
 
         .profile-modal-overlay.active .profile-modal {
+            transform: scale(1);
+        }
+
+        .saved-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10001;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .saved-modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .saved-modal {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 30px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 1px solid var(--neon-green);
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
+            transform: scale(0.9);
+            transition: all 0.3s ease;
+        }
+
+        .saved-modal-overlay.active .saved-modal {
             transform: scale(1);
         }
 
@@ -2104,6 +2182,118 @@
                         </div>
                     </div>
                 </div>
+                <div class="featured-slide" data-slide="34">
+                    <img class="featured-slide-bg" src="apk fille/assets/планета.png" alt="Red Dead Redemption" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
+                    <div class="featured-slide-gradient"></div>
+                    <div class="featured-content">
+                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+                        <h2 class="featured-title">Solar Smash</h2>
+                        <p class="featured-desc">симулятор разрушения планет с помощью различного оружия и космических объектов.</p>
+                        <div class="featured-buttons">
+                            <button class="featured-btn" onclick="showGameInfo(30)">СМОТРЕТЬ</button>
+                            <a href="apk fille\apk\Solar+Smash+Mod+2.6.7.apk" download class="featured-btn featured-download">СКАЧАТЬ</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="featured-slide" data-slide="35">
+                    <img class="featured-slide-bg" src="apk fille/assets/photo_2026-04-24_20-12-09.png" alt="Red Dead Redemption" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
+                    <div class="featured-slide-gradient"></div>
+                    <div class="featured-content">
+                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+                        <h2 class="featured-title">Chill with You</h2>
+                        <p class="featured-desc">это мобильная игра, вдохновленная популярными музыкальными стримами LoFi Girl.</p>
+                        <div class="featured-buttons">
+                            <button class="featured-btn" onclick="showGameInfo(30)">СМОТРЕТЬ</button>
+                            <a href="apk fille\apk\Chill+With+You+Mod+1.4.6.apk" download class="featured-btn featured-download">СКАЧАТЬ</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="featured-slide" data-slide="36">
+                    <img class="featured-slide-bg" src="apk fille/assets/photo_2026-04-24_20-13-40.png" alt="Red Dead Redemption" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
+                    <div class="featured-slide-gradient"></div>
+                    <div class="featured-content">
+                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+                        <h2 class="featured-title">FPV War</h2>
+                        <p class="featured-desc">это захватывающая игра, которая объединяет жанры экшена и симулятора. Возьмите на себя управление современными боевыми дронами и выполните сложные миссии, уничтожая вражескую технику и пехоту.</p>
+                        <div class="featured-buttons">
+                            <button class="featured-btn" onclick="showGameInfo(30)">СМОТРЕТЬ</button>
+                            <a href="apk fille\apk\FPV+War+Mod+2.13.0.apk" download class="featured-btn featured-download">СКАЧАТЬ</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="featured-slide" data-slide="37">
+                    <img class="featured-slide-bg" src="apk fille/assets/photo_2026-04-24_20-14-39.png" alt="Red Dead Redemption" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
+                    <div class="featured-slide-gradient"></div>
+                    <div class="featured-content">
+                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+                        <h2 class="featured-title">Hotline Miami 2</h2>
+                        <p class="featured-desc">это продолжение нашумевшего адреналинового экшена, с кучей крови, стрельбы и трупов вокруг вас.</p>
+                        <div class="featured-buttons">
+                            <button class="featured-btn" onclick="showGameInfo(30)">СМОТРЕТЬ</button>
+                            <a href="apk fille\apk\Hotline+Miami+2+0.8.1-beta.apk" download class="featured-btn featured-download">СКАЧАТЬ</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="featured-slide" data-slide="38">
+                    <img class="featured-slide-bg" src="apk fille/assets/photo_2026-04-24_20-15-21.png" alt="Red Dead Redemption" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
+                    <div class="featured-slide-gradient"></div>
+                    <div class="featured-content">
+                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+                        <h2 class="featured-title">Dave the Diver</h2>
+                        <p class="featured-desc">это казуальная одиночная приключенческая ролевая игра, в которой вам предстоит днем исследовать глубоководные зоны и ловить рыбу, а вечером управлять суши-баром.</p>
+                        <div class="featured-buttons">
+                            <button class="featured-btn" onclick="showGameInfo(30)">СМОТРЕТЬ</button>
+                            <a href="apk fille\apk\Dave+The+Diver+Mod+1.0.28.apk" download class="featured-btn featured-download">СКАЧАТЬ</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="featured-slide" data-slide="39">
+                    <img class="featured-slide-bg" src="apk fille/assets/photo_2026-04-24_20-18-37.png" alt="Red Dead Redemption" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
+                    <div class="featured-slide-gradient"></div>
+                    <div class="featured-content">
+                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+                        <h2 class="featured-title">4U VPN</h2>
+                        <p class="featured-desc">новый неплохой VPN с рабочими серверами.</p>
+                        <div class="featured-buttons">
+                            <button class="featured-btn" onclick="showGameInfo(30)">СМОТРЕТЬ</button>
+                            <a href="apk fille\apk\4U+VPN+Premium+1.6.1.apk" download class="featured-btn featured-download">СКАЧАТЬ</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="featured-slide" data-slide="40">
+                    <img class="featured-slide-bg" src="apk fille/assets/photo_2026-04-24_20-18-56.png" alt="Red Dead Redemption" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
+                    <div class="featured-slide-gradient"></div>
+                    <div class="featured-content">
+                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+                        <h2 class="featured-title">Chillquarium</h2>
+                        <p class="featured-desc">уютная расслабляющая инди-игра. Покупайте рыб, выращивайте их в реальном времени, а затем продавайте, чтобы заработать.</p>
+                        <div class="featured-buttons">
+                            <button class="featured-btn" onclick="showGameInfo(30)">СМОТРЕТЬ</button>
+                            <a href="apk fille\apk\Chillquarium+Mod+1.1.1.apk" download class="featured-btn featured-download">СКАЧАТЬ</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="featured-slide" data-slide="41">
+                    <img class="featured-slide-bg" src="apk fille/assets/photo_2026-04-24_20-19-30.png" alt="Red Dead Redemption" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
+                    <div class="featured-slide-gradient"></div>
+                    <div class="featured-content">
+                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+                        <h2 class="featured-title">CloverPit</h2>
+                        <p class="featured-desc">это игра в жанре rogue-lite, в которой вы оказываетесь в ловушке, которую сами же и создали. Взаперти в ржавой камере наедине со слот-машиной и банкоматом.</p>
+                        <div class="featured-buttons">
+                            <button class="featured-btn" onclick="showGameInfo(30)">СМОТРЕТЬ</button>
+                            <a href="apk fille\apk\CloverPit+1.4.1.apk" download class="featured-btn featured-download">СКАЧАТЬ</a>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="banner-dots">
                 <span class="banner-dot active" data-dot="0"></span>
@@ -2140,6 +2330,14 @@
                 <span class="banner-dot" data-dot="31"></span>
                 <span class="banner-dot" data-dot="32"></span>
                 <span class="banner-dot" data-dot="33"></span>
+                <span class="banner-dot" data-dot="34"></span>
+                <span class="banner-dot" data-dot="35"></span>
+                <span class="banner-dot" data-dot="36"></span>
+                <span class="banner-dot" data-dot="37"></span>
+                <span class="banner-dot" data-dot="38"></span>
+                <span class="banner-dot" data-dot="39"></span>
+                <span class="banner-dot" data-dot="40"></span>
+                <span class="banner-dot" data-dot="41"></span>
             </div>
         </section>
 
@@ -2255,21 +2453,29 @@
                     <span class="profile-usertype" id="profileUserType">User</span>
                 </div>
             </div>
-            <div class="profile-menu">
-                <div class="profile-menu-item" onclick="showFavorites()">
-                    <i class="fas fa-star"></i>
-                    <span>Избранное</span>
+<div class="profile-menu">
+                <div id="favoritesBtn" style="padding: 14px 16px; background: var(--bg-secondary); border-radius: 8px; cursor: pointer; border: 1px solid transparent; transition: all 0.3s ease;" onmouseover="this.style.borderColor='var(--neon-cyan)'" onmouseout="this.style.borderColor='transparent'">
+                    <i class="fas fa-star" style="font-size: 20px; color: var(--neon-cyan); margin-right: 12px;"></i>
+                    <span style="font-size: 16px; color: var(--text-primary);">Избранное</span>
                     <span class="badge" id="favoritesCount">0</span>
-                </div>
-                <div class="profile-menu-item" onclick="showSavedPrograms()">
-                    <i class="fas fa-save"></i>
-                    <span>Сохраненные программы</span>
-                    <span class="badge" id="savedCount">0</span>
                 </div>
             </div>
             <div id="profileContent"></div>
             <button class="profile-close-btn" onclick="logout()">Выйти из аккаунта</button>
             <button class="profile-close-btn" onclick="closeProfileModal()" style="margin-top: 8px; border-color: var(--text-secondary); color: var(--text-secondary);">Закрыть</button>
+        </div>
+    </div>
+
+    <!-- Saved Items Modal -->
+    <div class="saved-modal-overlay" id="savedModal" onclick="closeSavedModal()" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); display: none; align-items: center; justify-content: center; z-index: 10001;">
+        <div class="saved-modal" onclick="event.stopPropagation()" style="background: var(--bg-card); border-radius: 16px; padding: 30px; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; border: 1px solid var(--neon-green); box-shadow: 0 0 30px rgba(0, 255, 136, 0.3);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2 id="savedModalTitle" style="color: var(--neon-cyan); margin: 0;">Избранное</h2>
+                <button onclick="closeSavedModal()" style="background: none; border: none; color: var(--text-secondary); font-size: 24px; cursor: pointer;">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div id="savedModalContent" style="overflow-y: auto; max-height: 60vh;"></div>
         </div>
     </div>
 
@@ -2657,6 +2863,83 @@
                 apk: "https://mega.nz/file/NyoXULQL#OdAGbNt1SqAyB-Qbi9Z0U8PDuaLcmp6hR7QmHFs-9po", 
                 description: "игра-головоломка-экшн в жанре ужасов от первого лица с уникальной мультипликационной атмосферой." 
             },
+            { 
+                id: 32, 
+                name: "Solar Smash", 
+                category: "simulation", 
+                rating: 4.8, 
+                downloads: "152.0 MB", 
+                image: "apk fille/assets/планета.png", 
+                avatar: "apk fille/assets/photo_2026-04-24_20-10-51.png", 
+                apk: "apk fille/apk/Solar+Smash+Mod+2.6.7.apk", 
+                description: "симулятор разрушения планет с помощью различного оружия и космических объектов." 
+            },
+            { 
+                id: 33, 
+                name: "Chill with You", 
+                category: "simulation", 
+                rating: 4.8, 
+                downloads: "942.2 MB", 
+                image: "apk fille/assets/photo_2026-04-24_20-12-09.png", 
+                avatar: "apk fille/assets/photo_2026-04-24_20-12-10.png", 
+                apk: "apk fille/apk/Chill+With+You+Mod+1.4.6.apk", 
+                description: "это мобильная игра, вдохновленная популярными музыкальными стримами LoFi Girl." 
+            },
+            { 
+                id: 34, 
+                name: "FPV War", 
+                category: "simulation", 
+                rating: 4.8, 
+                downloads: "205.8 MB", 
+                image: "apk fille/assets/photo_2026-04-24_20-13-40.png", 
+                avatar: "apk fille/assets/photo_2026-04-24_20-13-41.png", 
+                apk: "apk fille/apk/FPV+War+Mod+2.13.0.apk", 
+                description: "это захватывающая игра, которая объединяет жанры экшена и симулятора. Возьмите на себя управление современными боевыми дронами и выполните сложные миссии, уничтожая вражескую технику и пехоту." 
+            },
+            { 
+                id: 35, 
+                name: "Hotline Miami 2", 
+                category: "action", 
+                rating: 4.8, 
+                downloads: "182.7 MB", 
+                image: "apk fille/assets/photo_2026-04-24_20-14-39.png", 
+                avatar: "apk fille/assets/photo_2026-04-24_20-14-40.png", 
+                apk: "apk fille/apk/Hotline+Miami+2+0.8.1-beta.apk", 
+                description: "это продолжение нашумевшего адреналинового экшена, с кучей крови, стрельбы и трупов вокруг вас." 
+            },
+            { 
+                id: 36, 
+                name: "Dave the Diver", 
+                category: "adventures", 
+                rating: 4.8, 
+                downloads: "2756.1 MB", 
+                image: "apk fille/assets/photo_2026-04-24_20-15-21.png", 
+                avatar: "apk fille/assets/photo_2026-04-24_20-15-22.png", 
+                apk: "apk fille/apk/Dave+The+Diver+Mod+1.0.28.apk", 
+                description: "это казуальная одиночная приключенческая ролевая игра, в которой вам предстоит днем исследовать глубоководные зоны и ловить рыбу, а вечером управлять суши-баром." 
+            },
+            { 
+                id: 37, 
+                name: "Chillquarium", 
+                category: "casual", 
+                rating: 4.8, 
+                downloads: "428.7 MB", 
+                image: "apk fille/assets/photo_2026-04-24_20-18-56.png", 
+                avatar: "apk fille/assets/photo_2026-04-24_20-18-57.png", 
+                apk: "apk fille/apk/Chillquarium+Mod+1.1.1.apk", 
+                description: "уютная расслабляющая инди-игра. Покупайте рыб, выращивайте их в реальном времени, а затем продавайте, чтобы заработать." 
+            },
+            { 
+                id: 38, 
+                name: "Chillquarium", 
+                category: "simulation", 
+                rating: 4.8, 
+                downloads: "170.6 MB", 
+                image: "apk fille/assets/photo_2026-04-24_20-19-30.png", 
+                avatar: "apk fille/assets/photo_2026-04-24_20-19-31.png", 
+                apk: "apk fille/apk/CloverPit+1.4.1.apk", 
+                description: "это игра в жанре rogue-lite, в которой вы оказываетесь в ловушке, которую сами же и создали. Взаперти в ржавой камере наедине со слот-машиной и банкоматом. " 
+            },
         ];
 
         const apps = [
@@ -2737,6 +3020,17 @@
                 apk: "https://mega.nz/file/6Uc1XKYZ#wLV7OPBLlL7jr1m_4IQ3Lr1WoxODeDX7NDT7g7RdN0E", 
                 description: "официальное приложение популярного портала Savefrom для скачивания видео и аудио с различных сайтов." 
             },
+            { 
+                id: 8, 
+                name: "4U VPN", 
+                category: "utilities", 
+                rating: 4.8, 
+                downloads: "65.7 MB", 
+                image: "apk fille/assets/photo_2026-04-24_20-18-37.png", 
+                avatar: "apk fille/assets/photo_2026-04-24_20-18-38.png", 
+                apk: "apk fille/apk/4U+VPN+Premium+1.6.1.apk", 
+                description: "новый неплохой VPN с рабочими серверами." 
+            },
         ];
 
         let currentTab = 'games';
@@ -2754,7 +3048,8 @@
             { id: 'sports', name: 'Спорт' },
             { id: 'strategy', name: 'Стратегии' },
             { id: 'horror', name: 'Хорроры' },
-            { id: 'adventures', name: 'Приключения' }
+            { id: 'adventures', name: 'Приключения' },
+            { id: 'casual', name: 'Казуальные' }
         ];
 
         // Категории для приложений
@@ -2822,9 +3117,16 @@
             const itemType = type || 'game';
             const favKey = itemType + '_' + item.id;
             const isFav = isFavorite(favKey);
+            const isSavedItem = isSaved(item.id);
             const favBtnHtml = currentUser 
                 ? `<button class="modal-fav-btn ${isFav ? 'active' : ''}" onclick="event.stopPropagation(); toggleFavorite('${favKey}'); updateModalFavorite('${favKey}')">
                     <i class="fas fa-star"></i> ${isFav ? 'В избранном' : 'В избранное'}
+                   </button>`
+                : '';
+            
+            const saveBtnHtml = (currentUser && type === 'app')
+                ? `<button class="modal-save-btn ${isSavedItem ? 'active' : ''}" onclick="event.stopPropagation(); toggleSaveProgram(${item.id}); updateModalSave(${item.id})">
+                    <i class="fas fa-bookmark"></i> ${isSavedItem ? 'Сохранено' : 'Сохранить'}
                    </button>`
                 : '';
             
@@ -2832,7 +3134,9 @@
             modalTitleContainer.style.position = 'relative';
             const existingFavBtn = modalTitleContainer.querySelector('.modal-fav-btn');
             if (existingFavBtn) existingFavBtn.remove();
-            modalTitleContainer.insertAdjacentHTML('beforeend', favBtnHtml);
+            const existingSaveBtn = modalTitleContainer.querySelector('.modal-save-btn');
+            if (existingSaveBtn) existingSaveBtn.remove();
+            modalTitleContainer.insertAdjacentHTML('beforeend', favBtnHtml + saveBtnHtml);
             
             modalSize.textContent = `📁 Размер: ${item.downloads}`;
             modalDescription.textContent = item.description || 'Описание недоступно.';
@@ -3059,7 +3363,8 @@
                 
                 const favCount = document.getElementById('favoritesCount');
                 if (favCount) {
-                    favCount.textContent = favorites.length;
+                    const total = (favorites.length) + (currentUser.savedPrograms ? currentUser.savedPrograms.length : 0);
+                    favCount.textContent = total;
                 }
             } else {
                 authBtn.textContent = 'ВОЙТИ';
@@ -3174,7 +3479,7 @@
                 }
                 const userType = /^(Dev|Developer)/i.test(username) ? 'developer' : 'user';
                 const defaultBadge = userType === 'developer' ? '✓' : '';
-                currentUser = { username, password, type: userType, badge: defaultBadge, favorites: [] };
+                currentUser = { username, password, type: userType, badge: defaultBadge, favorites: [], savedPrograms: [] };
                 existingUsers.push(currentUser);
                 localStorage.setItem('cyberstore_users', JSON.stringify(existingUsers));
                 successEl.textContent = 'Регистрация успешна!';
@@ -3199,6 +3504,14 @@
                     }
                 }
                 favorites = user.favorites || [];
+                if (!currentUser.savedPrograms) {
+                    currentUser.savedPrograms = [];
+                    const userIndex = existingUsers.findIndex(u => u.username === username);
+                    if (userIndex > -1) {
+                        existingUsers[userIndex].savedPrograms = [];
+                        localStorage.setItem('cyberstore_users', JSON.stringify(existingUsers));
+                    }
+                }
             }
 
             localStorage.setItem('cyberstore_user', JSON.stringify(currentUser));
@@ -3217,6 +3530,90 @@
             updateAuthUI();
             closeProfileModal();
             renderContent();
+        }
+
+        function openSavedModal() {
+            if (!currentUser) {
+                openAuthModal();
+                return;
+            }
+            
+            closeProfileModal();
+            document.getElementById('savedModalTitle').textContent = 'Мои сохранёнки';
+            
+            const savedContent = document.getElementById('savedModalContent');
+            const saved = currentUser.savedPrograms || [];
+            
+            if (saved.length === 0) {
+                savedContent.innerHTML = `
+                    <div class="empty-favorites">
+                        <i class="fas fa-bookmark"></i>
+                        <p>У вас нет сохранённых программ</p>
+                    </div>
+                `;
+            } else {
+                const savedItems = [];
+                saved.forEach(itemId => {
+                    let app = apps.find(a => a.id === itemId);
+                    let game = games.find(g => g.id === itemId);
+                    let item = app || game;
+                    if (item) {
+                        savedItems.push({
+                            ...item, 
+                            type: app ? 'app' : 'game',
+                            favKey: (app ? 'app' : 'game') + '_' + item.id
+                        });
+                    }
+                });
+                
+                savedContent.innerHTML = `
+                    <div class="favorites-grid">
+                        ${savedItems.map(item => `
+                            <div class="favorite-item" onclick="showGameInfo(${item.id}, '${item.type}')" style="cursor: pointer;">
+                                <img src="${item.avatar || item.image || ''}" alt="${item.name}" onerror="this.src=''">
+                                <div class="favorite-item-info">
+                                    <div class="favorite-item-name">${item.name}</div>
+                                    <div class="favorite-item-category">${getCategoryName(item.category)}</div>
+                                </div>
+                                <button class="favorite-item-remove" onclick="event.stopPropagation(); removeSave('${item.id}', '${item.type}')">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+            
+            document.getElementById('savedModal').classList.add('active');
+        }
+
+        function closeSavedModal() {
+            document.getElementById('savedModal').style.display = 'none';
+        }
+
+        function removeSave(itemId, type) {
+            if (!currentUser || !currentUser.savedPrograms) return;
+            
+            const id = parseInt(itemId);
+            const index = currentUser.savedPrograms.indexOf(id);
+            if (index > -1) {
+                currentUser.savedPrograms.splice(index, 1);
+                
+                const existingUsers = JSON.parse(localStorage.getItem('cyberstore_users') || '[]');
+                const userIndex = existingUsers.findIndex(u => u.username === currentUser.username);
+                if (userIndex > -1) {
+                    existingUsers[userIndex].savedPrograms = currentUser.savedPrograms;
+                    localStorage.setItem('cyberstore_users', JSON.stringify(existingUsers));
+                }
+                localStorage.setItem('cyberstore_user', JSON.stringify(currentUser));
+                
+                const savedCountEl = document.getElementById('savedCount');
+                if (savedCountEl) {
+                    savedCountEl.textContent = currentUser.savedPrograms.length;
+                }
+                
+                openSavedModal();
+            }
         }
 
         function openProfileModal() {
@@ -3246,57 +3643,101 @@
         }
 
         function showFavorites() {
-            const content = document.getElementById('profileContent');
-            closeProfileModal();
-            
-            if (favorites.length === 0) {
-                content.innerHTML = `
-                    <h3 class="profile-section-title">Избранное</h3>
-                    <div class="empty-favorites">
-                        <i class="fas fa-star"></i>
-                        <p>У вас нет избранных игр/программ</p>
-                    </div>
-                `;
+            if (!currentUser) {
+                openAuthModal();
                 return;
             }
-
-            const favoriteItems = [];
+            
+            const profileModal = document.getElementById('profileModal');
+            profileModal.classList.add('active');
+            
+            if (currentUser && currentUser.favorites) {
+                favorites = currentUser.favorites;
+            }
+            
+            const saved = currentUser ? (currentUser.savedPrograms || []) : [];
+            const allItems = [];
+            
             favorites.forEach(favKey => {
                 const [type, idStr] = favKey.split('_');
                 const id = parseInt(idStr);
                 if (type === 'game') {
                     const g = games.find(game => game.id === id);
-                    if (g) favoriteItems.push({...g, type: 'game', favKey});
+                    if (g) allItems.push({...g, type: 'game', favKey, source: 'favorite'});
                 } else if (type === 'app') {
                     const a = apps.find(app => app.id === id);
-                    if (a) favoriteItems.push({...a, type: 'app', favKey});
+                    if (a) allItems.push({...a, type: 'app', favKey, source: 'favorite'});
                 }
             });
-
-            content.innerHTML = `
-                <h3 class="profile-section-title">Избранное (${favoriteItems.length})</h3>
-                <div class="favorites-grid">
-                    ${favoriteItems.map(item => `
-                        <div class="favorite-item" onclick="showGameInfo(${item.id}, '${item.type}')" style="cursor: pointer;">
-                            <img src="${item.avatar || item.image || ''}" alt="${item.name}" onerror="this.src=''">
-                            <div class="favorite-item-info">
-                                <div class="favorite-item-name">${item.name}</div>
-                                <div class="favorite-item-category">${getCategoryName(item.category)}</div>
-                            </div>
-                            <button class="favorite-item-remove" onclick="event.stopPropagation(); removeFavorite('${item.favKey}')">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                    `).join('')}
-                </div>
-            `;
             
-            document.getElementById('profileModal').classList.add('active');
+            saved.forEach(itemId => {
+                let app = apps.find(a => a.id === itemId);
+                let game = games.find(g => g.id === itemId);
+                let item = app || game;
+                if (item) {
+                    const alreadyAdded = allItems.some(i => i.id === item.id);
+                    if (!alreadyAdded) {
+                        allItems.push({...item, type: app ? 'app' : 'game', id: item.id, source: 'saved'});
+                    }
+                }
+            });
+            
+            const content = document.getElementById('profileContent');
+            content.innerHTML = '';
+            
+            if (allItems.length === 0) {
+                content.innerHTML = `
+                    <h3 style="color: var(--neon-cyan); margin: 20px 0 10px 0;">Избранное</h3>
+                    <div style="text-align: center; padding: 30px; color: var(--text-secondary);">
+                        <i class="fas fa-star" style="font-size: 36px; margin-bottom: 12px;"></i>
+                        <p>У вас нет избранных игр/программ</p>
+                    </div>
+                `;
+            } else {
+                let itemsHtml = '<h3 style="color: var(--neon-cyan); margin: 20px 0 10px 0;">Избранное</h3>';
+                itemsHtml += '<div style="display: flex; flex-direction: column; gap: 10px;">';
+                allItems.forEach(item => {
+                    itemsHtml += `
+                        <div onclick="showGameInfo(${item.id}, '${item.type}')" style="cursor: pointer; padding: 12px; display: flex; align-items: center; gap: 12px; background: var(--bg-secondary); border-radius: 8px;">
+                            <div style="width: 40px; height: 40px; border-radius: 8px; background: var(--bg-card); display: flex; align-items: center; justify-content: center;">
+                                <i class="fas fa-gamepad" style="color: var(--neon-cyan);"></i>
+                            </div>
+                            <div style="flex: 1;">
+                                <div style="color: var(--text-primary); font-size: 14px; font-weight: 600;">${item.name}</div>
+                                <div style="color: var(--text-secondary); font-size: 11px;">${getCategoryName(item.category)}</div>
+                            </div>
+                            <span style="color: ${item.source === 'favorite' ? 'var(--neon-yellow)' : 'var(--neon-green)'};">
+                                ${item.source === 'favorite' ? '★' : '◎'}
+                            </span>
+                        </div>
+                    `;
+                });
+                itemsHtml += '</div>';
+                content.innerHTML = itemsHtml;
+            }
         }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const favBtn = document.getElementById('favoritesBtn');
+            if (favBtn) {
+                favBtn.onclick = function(e) {
+                    e.stopPropagation();
+                    console.log('Кнопка Избранное нажата');
+                    showFavorites();
+                };
+            }
+        });
 
         function showSavedPrograms() {
             const content = document.getElementById('profileContent');
-            const saved = currentUser.savedPrograms || [];
+            document.getElementById('profileModal').classList.add('active');
+            
+            if (currentUser && !currentUser.savedPrograms) {
+                currentUser.savedPrograms = [];
+            }
+            
+            const saved = currentUser ? (currentUser.savedPrograms || []) : [];
+            
             if (saved.length === 0) {
                 content.innerHTML = `
                     <h3 class="profile-section-title">Сохраненные программы</h3>
@@ -3304,10 +3745,37 @@
                         <i class="fas fa-save"></i>
                         <p>У вас нет сохраненных программ</p>
                     </div>
+                    <button class="profile-close-btn" onclick="openProfileModal()" style="margin-top: 16px; border-color: var(--neon-cyan); color: var(--neon-cyan);">← Назад</button>
                 `;
                 return;
             }
-            content.innerHTML = `<h3 class="profile-section-title">Сохраненные программы (${saved.length})</h3>`;
+            
+            const savedItems = [];
+            saved.forEach(appId => {
+                const app = apps.find(a => a.id === appId);
+                if (app) savedItems.push(app);
+            });
+            
+            const savedCountEl = document.getElementById('savedCount');
+            if (savedCountEl) {
+                savedCountEl.textContent = saved.length;
+            }
+            
+            content.innerHTML = `
+                <h3 class="profile-section-title">Сохраненные программы (${savedItems.length})</h3>
+                <div class="favorites-grid">
+                    ${savedItems.map(app => `
+                        <div class="favorite-item" onclick="showGameInfo(${app.id}, 'app')" style="cursor: pointer;">
+                            <img src="${app.avatar || app.image || ''}" alt="${app.name}" onerror="this.src=''">
+                            <div class="favorite-item-info">
+                                <div class="favorite-item-name">${app.name}</div>
+                                <div class="favorite-item-category">${getCategoryName(app.category)}</div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+                <button class="profile-close-btn" onclick="openProfileModal()" style="margin-top: 16px; border-color: var(--neon-cyan); color: var(--neon-cyan);">← Назад</button>
+            `;
         }
 
         function removeFavorite(favKey) {
@@ -3361,6 +3829,52 @@
 
         function isFavorite(favKey) {
             return currentUser && favorites.includes(favKey);
+        }
+
+        function toggleSaveProgram(appId) {
+            if (!currentUser) {
+                openAuthModal();
+                return;
+            }
+            
+            if (!currentUser.savedPrograms) {
+                currentUser.savedPrograms = [];
+            }
+            
+            const index = currentUser.savedPrograms.indexOf(appId);
+            if (index > -1) {
+                currentUser.savedPrograms.splice(index, 1);
+            } else {
+                currentUser.savedPrograms.push(appId);
+            }
+            
+            const existingUsers = JSON.parse(localStorage.getItem('cyberstore_users') || '[]');
+            const userIndex = existingUsers.findIndex(u => u.username === currentUser.username);
+            if (userIndex > -1) {
+                existingUsers[userIndex].savedPrograms = currentUser.savedPrograms;
+                localStorage.setItem('cyberstore_users', JSON.stringify(existingUsers));
+            }
+            localStorage.setItem('cyberstore_user', JSON.stringify(currentUser));
+            
+            const savedCountEl = document.getElementById('savedCount');
+            if (savedCountEl) {
+                savedCountEl.textContent = currentUser.savedPrograms.length;
+            }
+            
+            updateModalSave(appId);
+        }
+
+        function isSaved(appId) {
+            return currentUser && currentUser.savedPrograms && currentUser.savedPrograms.includes(appId);
+        }
+
+        function updateModalSave(appId) {
+            const saveBtn = document.querySelector('.modal-save-btn');
+            if (saveBtn) {
+                const isSavedItem = isSaved(appId);
+                saveBtn.classList.toggle('active', isSavedItem);
+                saveBtn.innerHTML = `<i class="fas fa-bookmark"></i> ${isSavedItem ? 'Сохранено' : 'Сохранить'}`;
+            }
         }
 
         function renderCard(item, isApp = false) {
