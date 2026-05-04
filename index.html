@@ -3280,7 +3280,7 @@
             reqRAM.textContent = sizeNum > 300 ? '4 GB' : '2 GB';
             reqStorage.textContent = item.downloads;
 
-            window.currentItem = item;
+            window.currentItem = {...item, type};
 
             modal.classList.add('active');
         }
@@ -3291,15 +3291,17 @@
 
         function shareGame() {
             const item = window.currentItem;
+            const type = window.currentItem.type || 'game'; // Default to game if not specified
+            const shareUrl = window.location.href.split('#')[0] + '#' + type + '-' + item.id;
             if (navigator.share) {
                 navigator.share({
                     title: item.name,
-                    text: 'Скачай игру: ' + item.name,
-                    url: item.apk
+                    text: 'Скачай на сайте: ' + item.name,
+                    url: shareUrl
                 }).catch(console.error);
             } else {
                 // Fallback: copy to clipboard
-                navigator.clipboard.writeText(item.apk).then(() => {
+                navigator.clipboard.writeText(shareUrl).then(() => {
                     alert('Ссылка скопирована в буфер обмена');
                 }).catch(() => {
                     alert('Не удалось скопировать ссылку');
@@ -3311,7 +3313,7 @@
             const items = type === 'game' ? games : apps;
             const item = items.find(i => i.id === id);
             if (item) {
-                window.currentItem = item;
+                window.currentItem = {...item, type};
                 shareGame();
             }
         }
@@ -4064,6 +4066,26 @@
                 </div>
             `;
         }
+
+        function handleHash() {
+            const hash = window.location.hash;
+            if (hash.startsWith('#game-')) {
+                const id = parseInt(hash.replace('#game-', ''));
+                if (id) {
+                    showGameInfo(id, 'game');
+                }
+            } else if (hash.startsWith('#app-')) {
+                const id = parseInt(hash.replace('#app-', ''));
+                if (id) {
+                    showGameInfo(id, 'app');
+                }
+            }
+        }
+
+        // Handle hash on page load
+        window.addEventListener('load', handleHash);
+        // Handle hash changes
+        window.addEventListener('hashchange', handleHash);
     </script>
     
     <div class="social-links">
