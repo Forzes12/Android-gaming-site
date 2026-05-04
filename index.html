@@ -815,64 +815,66 @@
         }
 
         .modal-fav-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            padding: 8px 14px;
-            background: rgba(0, 0, 0, 0.7);
-            border: 1px solid var(--text-secondary);
-            border-radius: 20px;
-            color: var(--text-secondary);
-            font-size: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            z-index: 10;
-        }
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 8px 14px;
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid var(--text-secondary);
+    border-radius: 20px;
+    color: var(--text-secondary);
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    z-index: 10;
+    backdrop-filter: blur(4px);
+}
 
-        .modal-fav-btn:hover {
-            background: rgba(0, 0, 0, 0.9);
-            border-color: var(--neon-yellow);
-            color: var(--neon-yellow);
-        }
+.modal-fav-btn:hover {
+    background: rgba(0, 0, 0, 0.9);
+    border-color: var(--neon-yellow);
+    color: var(--neon-yellow);
+}
 
-        .modal-fav-btn.active {
-            background: var(--neon-yellow);
-            border-color: var(--neon-yellow);
-            color: var(--bg-primary);
-        }
+.modal-fav-btn.active {
+    background: var(--neon-yellow);
+    border-color: var(--neon-yellow);
+    color: var(--bg-primary);
+}
 
-        .modal-save-btn {
-            position: absolute;
-            top: 20px;
-            right: 140px;
-            padding: 8px 14px;
-            background: rgba(0, 0, 0, 0.7);
-            border: 1px solid var(--text-secondary);
-            border-radius: 20px;
-            color: var(--text-secondary);
-            font-size: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            z-index: 10;
-        }
+.modal-save-btn {
+    position: absolute;
+    top: 20px;
+    right: 140px;
+    padding: 8px 14px;
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid var(--text-secondary);
+    border-radius: 20px;
+    color: var(--text-secondary);
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    z-index: 10;
+    backdrop-filter: blur(4px);
+}
 
-        .modal-save-btn:hover {
-            background: rgba(0, 0, 0, 0.9);
-            border-color: var(--neon-green);
-            color: var(--neon-green);
-        }
+.modal-save-btn:hover {
+    background: rgba(0, 0, 0, 0.9);
+    border-color: var(--neon-green);
+    color: var(--neon-green);
+}
 
-        .modal-save-btn.active {
-            background: var(--neon-green);
-            border-color: var(--neon-green);
-            color: var(--bg-primary);
-        }
+.modal-save-btn.active {
+    background: var(--neon-green);
+    border-color: var(--neon-green);
+    color: var(--bg-primary);
+}
 
         .fullscreen-viewer {
             position: fixed;
@@ -1278,35 +1280,40 @@
         }
 
         .fav-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            padding: 6px 10px;
-            background: rgba(0, 0, 0, 0.7);
-            border: 1px solid var(--text-secondary);
-            border-radius: 20px;
-            color: var(--text-secondary);
-            font-size: 11px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            z-index: 10;
-            white-space: nowrap;
-        }
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    padding: 4px 8px;
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid var(--text-secondary);
+    border-radius: 20px;
+    color: var(--text-secondary);
+    font-size: 9px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    z-index: 10;
+    white-space: nowrap;
+    backdrop-filter: blur(4px);
+}
 
-        .fav-btn:hover {
-            background: rgba(0, 0, 0, 0.9);
-            border-color: var(--neon-yellow);
-            color: var(--neon-yellow);
-        }
+.fav-btn i {
+    font-size: 8px;
+}
 
-        .fav-btn.active {
-            background: var(--neon-yellow);
-            border-color: var(--neon-yellow);
-            color: var(--bg-primary);
-        }
+.fav-btn:hover {
+    background: rgba(0, 0, 0, 0.9);
+    border-color: var(--neon-yellow);
+    color: var(--neon-yellow);
+}
+
+.fav-btn.active {
+    background: var(--neon-yellow);
+    border-color: var(--neon-yellow);
+    color: var(--bg-primary);
+}
 
         .auth-modal-overlay {
             position: fixed;
@@ -2169,130 +2176,145 @@
                     </div>
                 </div>
                 <div class="featured-slide" data-slide="33">
-                    <img class="featured-slide-bg" src="apk fille/assets/photo_2026-02-11_21-55-54.png" alt="Red Dead Redemption" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
-                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
-                    <div class="featured-slide-gradient"></div>
-                    <div class="featured-content">
-                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
-                        <h2 class="featured-title">Bendy and the Ink Machine</h2>
-                        <p class="featured-desc">игра-головоломка-экшн в жанре ужасов от первого лица с уникальной мультипликационной атмосферой.</p>
-                        <div class="featured-buttons">
-                            <button class="featured-btn" onclick="showGameInfo(30)">СМОТРЕТЬ</button>
-                            <a href="https://mega.nz/file/NyoXULQL#OdAGbNt1SqAyB-Qbi9Z0U8PDuaLcmp6hR7QmHFs-9po" download class="featured-btn featured-download">СКАЧАТЬ</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="featured-slide" data-slide="34">
-                    <img class="featured-slide-bg" src="apk fille/assets/планета.png" alt="Red Dead Redemption" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
-                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
-                    <div class="featured-slide-gradient"></div>
-                    <div class="featured-content">
-                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
-                        <h2 class="featured-title">Solar Smash</h2>
-                        <p class="featured-desc">симулятор разрушения планет с помощью различного оружия и космических объектов.</p>
-                        <div class="featured-buttons">
-                            <button class="featured-btn" onclick="showGameInfo(30)">СМОТРЕТЬ</button>
-                            <a href="apk fille\apk\Solar+Smash+Mod+2.6.7.apk" download class="featured-btn featured-download">СКАЧАТЬ</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="featured-slide" data-slide="35">
-                    <img class="featured-slide-bg" src="apk fille/assets/photo_2026-04-24_20-12-09.png" alt="Red Dead Redemption" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
-                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
-                    <div class="featured-slide-gradient"></div>
-                    <div class="featured-content">
-                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
-                        <h2 class="featured-title">Chill with You</h2>
-                        <p class="featured-desc">это мобильная игра, вдохновленная популярными музыкальными стримами LoFi Girl.</p>
-                        <div class="featured-buttons">
-                            <button class="featured-btn" onclick="showGameInfo(30)">СМОТРЕТЬ</button>
-                            <a href="https://mega.nz/file/YnhklDrL#gQjmdDWN_IYo6lt6wiiu7H9JRf61VaX9BRq-Xd9M25o" download class="featured-btn featured-download">СКАЧАТЬ</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="featured-slide" data-slide="36">
-                    <img class="featured-slide-bg" src="apk fille/assets/photo_2026-04-24_20-13-40.png" alt="Red Dead Redemption" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
-                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
-                    <div class="featured-slide-gradient"></div>
-                    <div class="featured-content">
-                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
-                        <h2 class="featured-title">FPV War</h2>
-                        <p class="featured-desc">это захватывающая игра, которая объединяет жанры экшена и симулятора. Возьмите на себя управление современными боевыми дронами и выполните сложные миссии, уничтожая вражескую технику и пехоту.</p>
-                        <div class="featured-buttons">
-                            <button class="featured-btn" onclick="showGameInfo(30)">СМОТРЕТЬ</button>
-                            <a href="apk fille\apk\FPV+War+Mod+2.13.0.apk" download class="featured-btn featured-download">СКАЧАТЬ</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="featured-slide" data-slide="37">
-                    <img class="featured-slide-bg" src="apk fille/assets/photo_2026-04-24_20-14-39.png" alt="Red Dead Redemption" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
-                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
-                    <div class="featured-slide-gradient"></div>
-                    <div class="featured-content">
-                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
-                        <h2 class="featured-title">Hotline Miami 2</h2>
-                        <p class="featured-desc">это продолжение нашумевшего адреналинового экшена, с кучей крови, стрельбы и трупов вокруг вас.</p>
-                        <div class="featured-buttons">
-                            <button class="featured-btn" onclick="showGameInfo(30)">СМОТРЕТЬ</button>
-                            <a href="apk fille\apk\Hotline+Miami+2+0.8.1-beta.apk" download class="featured-btn featured-download">СКАЧАТЬ</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="featured-slide" data-slide="38">
-                    <img class="featured-slide-bg" src="apk fille/assets/photo_2026-04-24_20-15-21.png" alt="Red Dead Redemption" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
-                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
-                    <div class="featured-slide-gradient"></div>
-                    <div class="featured-content">
-                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
-                        <h2 class="featured-title">Dave the Diver</h2>
-                        <p class="featured-desc">это казуальная одиночная приключенческая ролевая игра, в которой вам предстоит днем исследовать глубоководные зоны и ловить рыбу, а вечером управлять суши-баром.</p>
-                        <div class="featured-buttons">
-                            <button class="featured-btn" onclick="showGameInfo(30)">СМОТРЕТЬ</button>
-                            <a href="apk fille\apk\Dave+The+Diver+Mod+1.0.28.apk" download class="featured-btn featured-download">СКАЧАТЬ</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="featured-slide" data-slide="39">
-                    <img class="featured-slide-bg" src="apk fille/assets/photo_2026-04-24_20-18-37.png" alt="Red Dead Redemption" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
-                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
-                    <div class="featured-slide-gradient"></div>
-                    <div class="featured-content">
-                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
-                        <h2 class="featured-title">4U VPN</h2>
-                        <p class="featured-desc">новый неплохой VPN с рабочими серверами.</p>
-                        <div class="featured-buttons">
-                            <button class="featured-btn" onclick="showGameInfo(30)">СМОТРЕТЬ</button>
-                            <a href="apk fille\apk\4U+VPN+Premium+1.6.1.apk" download class="featured-btn featured-download">СКАЧАТЬ</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="featured-slide" data-slide="40">
-                    <img class="featured-slide-bg" src="apk fille/assets/photo_2026-04-24_20-18-56.png" alt="Red Dead Redemption" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
-                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
-                    <div class="featured-slide-gradient"></div>
-                    <div class="featured-content">
-                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
-                        <h2 class="featured-title">Chillquarium</h2>
-                        <p class="featured-desc">уютная расслабляющая инди-игра. Покупайте рыб, выращивайте их в реальном времени, а затем продавайте, чтобы заработать.</p>
-                        <div class="featured-buttons">
-                            <button class="featured-btn" onclick="showGameInfo(30)">СМОТРЕТЬ</button>
-                            <a href="apk fille\apk\Chillquarium+Mod+1.1.1.apk" download class="featured-btn featured-download">СКАЧАТЬ</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="featured-slide" data-slide="41">
-                    <img class="featured-slide-bg" src="apk fille/assets/photo_2026-04-24_20-19-30.png" alt="Red Dead Redemption" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
-                    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
-                    <div class="featured-slide-gradient"></div>
-                    <div class="featured-content">
-                        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
-                        <h2 class="featured-title">CloverPit</h2>
-                        <p class="featured-desc">это игра в жанре rogue-lite, в которой вы оказываетесь в ловушке, которую сами же и создали. Взаперти в ржавой камере наедине со слот-машиной и банкоматом.</p>
-                        <div class="featured-buttons">
-                            <button class="featured-btn" onclick="showGameInfo(30)">СМОТРЕТЬ</button>
-                            <a href="apk fille\apk\CloverPit+1.4.1.apk" download class="featured-btn featured-download">СКАЧАТЬ</a>
-                        </div>
-                    </div>
+    <img class="featured-slide-bg" src="apk fille/assets/photo_2026-02-11_21-55-54.png" alt="Bendy and the Ink Machine" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
+    <div class="featured-slide-gradient"></div>
+    <div class="featured-content">
+        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+        <h2 class="featured-title">Bendy and the Ink Machine</h2>
+        <p class="featured-desc">игра-головоломка-экшн в жанре ужасов от первого лица с уникальной мультипликационной атмосферой.</p>
+        <div class="featured-buttons">
+            <button class="featured-btn" onclick="showGameInfo(31, 'game')">СМОТРЕТЬ</button>
+            <a href="https://mega.nz/file/NyoXULQL#OdAGbNt1SqAyB-Qbi9Z0U8PDuaLcmp6hR7QmHFs-9po" download class="featured-btn featured-download">СКАЧАТЬ</a>
+        </div>
+    </div>
+</div>
+<div class="featured-slide" data-slide="34">
+    <img class="featured-slide-bg" src="apk fille/assets/планета.png" alt="Solar Smash" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
+    <div class="featured-slide-gradient"></div>
+    <div class="featured-content">
+        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+        <h2 class="featured-title">Solar Smash</h2>
+        <p class="featured-desc">симулятор разрушения планет с помощью различного оружия и космических объектов.</p>
+        <div class="featured-buttons">
+            <button class="featured-btn" onclick="showGameInfo(32, 'game')">СМОТРЕТЬ</button>
+            <a href="apk fille\apk\Solar+Smash+Mod+2.6.7.apk" download class="featured-btn featured-download">СКАЧАТЬ</a>
+        </div>
+    </div>
+</div>
+<div class="featured-slide" data-slide="35">
+    <img class="featured-slide-bg" src="apk fille/assets/photo_2026-04-24_20-12-09.png" alt="Chill with You" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
+    <div class="featured-slide-gradient"></div>
+    <div class="featured-content">
+        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+        <h2 class="featured-title">Chill with You</h2>
+        <p class="featured-desc">это мобильная игра, вдохновленная популярными музыкальными стримами LoFi Girl.</p>
+        <div class="featured-buttons">
+            <button class="featured-btn" onclick="showGameInfo(33, 'game')">СМОТРЕТЬ</button>
+            <a href="https://mega.nz/file/YnhklDrL#gQjmdDWN_IYo6lt6wiiu7H9JRf61VaX9BRq-Xd9M25o" download class="featured-btn featured-download">СКАЧАТЬ</a>
+        </div>
+    </div>
+</div>
+<div class="featured-slide" data-slide="36">
+    <img class="featured-slide-bg" src="apk fille/assets/photo_2026-04-24_20-13-40.png" alt="FPV War" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
+    <div class="featured-slide-gradient"></div>
+    <div class="featured-content">
+        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+        <h2 class="featured-title">FPV War</h2>
+        <p class="featured-desc">это захватывающая игра, которая объединяет жанры экшена и симулятора. Возьмите на себя управление современными боевыми дронами и выполните сложные миссии, уничтожая вражескую технику и пехоту.</p>
+        <div class="featured-buttons">
+            <button class="featured-btn" onclick="showGameInfo(34, 'game')">СМОТРЕТЬ</button>
+            <a href="apk fille\apk\FPV+War+Mod+2.13.0.apk" download class="featured-btn featured-download">СКАЧАТЬ</a>
+        </div>
+    </div>
+</div>
+<div class="featured-slide" data-slide="37">
+    <img class="featured-slide-bg" src="apk fille/assets/photo_2026-04-24_20-14-39.png" alt="Hotline Miami 2" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
+    <div class="featured-slide-gradient"></div>
+    <div class="featured-content">
+        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+        <h2 class="featured-title">Hotline Miami 2</h2>
+        <p class="featured-desc">это продолжение нашумевшего адреналинового экшена, с кучей крови, стрельбы и трупов вокруг вас.</p>
+        <div class="featured-buttons">
+            <button class="featured-btn" onclick="showGameInfo(35, 'game')">СМОТРЕТЬ</button>
+            <a href="apk fille\apk\Hotline+Miami+2+0.8.1-beta.apk" download class="featured-btn featured-download">СКАЧАТЬ</a>
+        </div>
+    </div>
+</div>
+<div class="featured-slide" data-slide="38">
+    <img class="featured-slide-bg" src="apk fille/assets/photo_2026-04-24_20-15-21.png" alt="Dave the Diver" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
+    <div class="featured-slide-gradient"></div>
+    <div class="featured-content">
+        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+        <h2 class="featured-title">Dave the Diver</h2>
+        <p class="featured-desc">это казуальная одиночная приключенческая ролевая игра, в которой вам предстоит днем исследовать глубоководные зоны и ловить рыбу, а вечером управлять суши-баром.</p>
+        <div class="featured-buttons">
+            <button class="featured-btn" onclick="showGameInfo(36, 'game')">СМОТРЕТЬ</button>
+            <a href="apk fille\apk\Dave+The+Diver+Mod+1.0.28.apk" download class="featured-btn featured-download">СКАЧАТЬ</a>
+        </div>
+    </div>
+</div>
+<div class="featured-slide" data-slide="39">
+    <img class="featured-slide-bg" src="apk fille/assets/photo_2026-04-24_20-18-37.png" alt="4U VPN" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
+    <div class="featured-slide-gradient"></div>
+    <div class="featured-content">
+        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+        <h2 class="featured-title">4U VPN</h2>
+        <p class="featured-desc">новый неплохой VPN с рабочими серверами.</p>
+        <div class="featured-buttons">
+            <button class="featured-btn" onclick="showGameInfo(8, 'app')">СМОТРЕТЬ</button>
+            <a href="apk fille\apk\4U+VPN+Premium+1.6.1.apk" download class="featured-btn featured-download">СКАЧАТЬ</a>
+        </div>
+    </div>
+</div>
+<div class="featured-slide" data-slide="40">
+    <img class="featured-slide-bg" src="apk fille/assets/photo_2026-04-24_20-18-56.png" alt="Chillquarium" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
+    <div class="featured-slide-gradient"></div>
+    <div class="featured-content">
+        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+        <h2 class="featured-title">Chillquarium</h2>
+        <p class="featured-desc">уютная расслабляющая инди-игра. Покупайте рыб, выращивайте их в реальном времени, а затем продавайте, чтобы заработать.</p>
+        <div class="featured-buttons">
+            <button class="featured-btn" onclick="showGameInfo(37, 'game')">СМОТРЕТЬ</button>
+            <a href="apk fille\apk\Chillquarium+Mod+1.1.1.apk" download class="featured-btn featured-download">СКАЧАТЬ</a>
+        </div>
+    </div>
+</div>
+<div class="featured-slide" data-slide="41">
+    <img class="featured-slide-bg" src="apk fille/assets/photo_2026-04-24_20-19-30.png" alt="CloverPit" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
+    <div class="featured-slide-gradient"></div>
+    <div class="featured-content">
+        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+        <h2 class="featured-title">CloverPit</h2>
+        <p class="featured-desc">это игра в жанре rogue-lite, в которой вы оказываетесь в ловушке, которую сами же и создали. Взаперти в ржавой камере наедине со слот-машиной и банкоматом.</p>
+        <div class="featured-buttons">
+            <button class="featured-btn" onclick="showGameInfo(38, 'game')">СМОТРЕТЬ</button>
+            <a href="apk fille\apk\CloverPit+1.4.1.apk" download class="featured-btn featured-download">СКАЧАТЬ</a>
+        </div>
+    </div>
+</div>
+<div class="featured-slide" data-slide="42">
+    <img class="featured-slide-bg" src="apk fille/assets/photo_2025-07-08_18-38-51.png" alt="CloverPit" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
+    <div class="featured-slide-gradient"></div>
+    <div class="featured-content">
+        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+        <h2 class="featured-title">Subnautica</h2>
+        <p class="featured-desc">это приключенческая игра, действие которой происходит в океане на другой планете.</p>
+        <div class="featured-buttons">
+            <button class="featured-btn" onclick="showGameInfo(38, 'game')">СМОТРЕТЬ</button>
+            <a href="https://mega.nz/file/PgIwhATC#7LNauzAj9EUWUeAsdk0MFquuWcaQwDNUzqt455m7NoI" download class="featured-btn featured-download">СКАЧАТЬ</a>
+        </div>
+    </div>
+</div>
                 </div>
             </div>
             <div class="banner-dots">
@@ -2338,6 +2360,7 @@
                 <span class="banner-dot" data-dot="39"></span>
                 <span class="banner-dot" data-dot="40"></span>
                 <span class="banner-dot" data-dot="41"></span>
+                <span class="banner-dot" data-dot="42"></span>
             </div>
         </section>
 
@@ -2939,6 +2962,17 @@
                 avatar: "apk fille/assets/photo_2026-04-24_20-19-31.png", 
                 apk: "https://mega.nz/file/434h3KJB#ke75Xe_DRC7ZAuXxrS3z-ds5Aw3O4Sq0cAkA63Q4d8c", 
                 description: "это игра в жанре rogue-lite, в которой вы оказываетесь в ловушке, которую сами же и создали. Взаперти в ржавой камере наедине со слот-машиной и банкоматом. " 
+            },
+            { 
+                id: 39, 
+                name: "Subnautica", 
+                category: "adventures", 
+                rating: 4.8, 
+                downloads: "2113.0 MB", 
+                image: "apk fille/assets/photo_2025-07-08_18-38-51.png", 
+                avatar: "apk fille/assets/photo_2025-07-08_18-38-511.png", 
+                apk: "https://mega.nz/file/PgIwhATC#7LNauzAj9EUWUeAsdk0MFquuWcaQwDNUzqt455m7NoI", 
+                description: "это приключенческая игра, действие которой происходит в океане на другой планете. " 
             },
         ];
 
