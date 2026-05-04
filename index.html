@@ -644,6 +644,7 @@
             border: 1px solid var(--border-glow);
             transform: scale(0.9);
             transition: all 0.3s ease;
+            position: relative;
         }
 
         .modal-content::-webkit-scrollbar {
@@ -788,6 +789,28 @@
             box-shadow: 0 0 25px var(--neon-cyan);
         }
 
+        .modal-share-btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: var(--neon-pink);
+            border: none;
+            border-radius: 8px;
+            color: var(--bg-primary);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 10px;
+        }
+
+        .modal-share-btn:hover {
+            box-shadow: 0 0 25px var(--neon-pink);
+        }
+
         .modal-description {
             font-size: 14px;
             line-height: 1.6;
@@ -817,7 +840,7 @@
         .modal-fav-btn {
     position: absolute;
     top: 20px;
-    right: 20px;
+    right: 10px;
     padding: 8px 14px;
     background: rgba(0, 0, 0, 0.7);
     border: 1px solid var(--text-secondary);
@@ -1279,6 +1302,47 @@
             text-shadow: 0 0 10px var(--neon-yellow);
         }
 
+        .share-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #ff6600;
+            color: var(--bg-primary);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .share-btn:hover {
+            background: #ff8533;
+            transform: scale(1.1);
+        }
+
+        .featured-share-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: #ff6600;
+            color: var(--bg-primary);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            margin-left: 8px;
+        }
+
+        .featured-share-btn:hover {
+            background: #ff8533;
+            transform: scale(1.1);
+        }
+
         .fav-btn {
     position: absolute;
     top: 8px;
@@ -1723,6 +1787,7 @@
                         <div class="featured-buttons">
                             <button class="featured-btn" onclick="showGameInfo(1, 'game')">СМОТРЕТЬ</button>
                             <a href="https://mega.nz/file/6RtUWaia#3Ql_QITvwU-gduFlWhwQLdpvWiKMT6atPSJCwt0sJEE" download class="featured-btn featured-download">СКАЧАТЬ</a>
+                            <button class="featured-share-btn" onclick="shareGameFromCard(1, 'game')"><i class="fas fa-share-alt"></i></button>
                         </div>
                     </div>
                 </div>
@@ -1737,6 +1802,7 @@
                         <div class="featured-buttons">
                             <button class="featured-btn" onclick="showGameInfo(2, 'game')">СМОТРЕТЬ</button>
                             <a href="https://mega.nz/file/vVkmkYbK#ip3lE9V7m4d6_PcAqkV2NMkUkCHHQPol95aRhalp4y4" download class="featured-btn featured-download">СКАЧАТЬ</a>
+                            <button class="featured-share-btn" onclick="shareGameFromCard(2, 'game')"><i class="fas fa-share-alt"></i></button>
                         </div>
                     </div>
                 </div>
@@ -1751,6 +1817,7 @@
                         <div class="featured-buttons">
                             <button class="featured-btn" onclick="showGameInfo(3, 'game')">СМОТРЕТЬ</button>
                             <a href="https://mega.nz/file/vRkyhLjQ#LFL65i7Q9elzYt5m2JIgeBjSXDjXAWpqeZs8_QFAqts" download class="featured-btn featured-download">СКАЧАТЬ</a>
+                            <button class="featured-share-btn" onclick="shareGameFromCard(3, 'game')"><i class="fas fa-share-alt"></i></button>
                         </div>
                     </div>
                 </div>
@@ -1765,6 +1832,7 @@
                         <div class="featured-buttons">
                             <button class="featured-btn" onclick="showGameInfo(4, 'game')">СМОТРЕТЬ</button>
                             <a href="https://mega.nz/file/6Y01BCZT#JO4TvL9cthU99-LvyUyD7YCJNhkCRK-aeRaVjykmESI" download class="featured-btn featured-download">СКАЧАТЬ</a>
+                            <button class="featured-share-btn" onclick="shareGameFromCard(4, 'game')"><i class="fas fa-share-alt"></i></button>
                         </div>
                     </div>
                 </div>
@@ -1779,6 +1847,7 @@
                         <div class="featured-buttons">
                             <button class="featured-btn" onclick="showGameInfo(5, 'app')">СМОТРЕТЬ</button>
                             <a href="https://mega.nz/file/SVdhXIra#3fflr_6ZzJNTJwubvOLNfxeKuAMphWVuBOwUPeX7jt4" download class="featured-btn featured-download">СКАЧАТЬ</a>
+                            <button class="featured-share-btn" onclick="shareGameFromCard(5, 'app')"><i class="fas fa-share-alt"></i></button>
                         </div>
                     </div>
                 </div>
@@ -3148,15 +3217,8 @@
             modalCategory.textContent = getCategoryName(item.category);
             modalRating.innerHTML = renderStars(item.rating);
             
-            const itemType = type || 'game';
-            const favKey = itemType + '_' + item.id;
-            const isFav = isFavorite(favKey);
             const isSavedItem = isSaved(item.id);
-            const favBtnHtml = currentUser 
-                ? `<button class="modal-fav-btn ${isFav ? 'active' : ''}" onclick="event.stopPropagation(); toggleFavorite('${favKey}'); updateModalFavorite('${favKey}')">
-                    <i class="fas fa-star"></i> ${isFav ? 'В избранном' : 'В избранное'}
-                   </button>`
-                : '';
+            const favBtnHtml = '';
             
             const saveBtnHtml = (currentUser && type === 'app')
                 ? `<button class="modal-save-btn ${isSavedItem ? 'active' : ''}" onclick="event.stopPropagation(); toggleSaveProgram(${item.id}); updateModalSave(${item.id})">
@@ -3193,7 +3255,19 @@
             } else {
                 modalDownloadBtn2.style.display = 'none';
             }
-            
+
+            // Add share button
+            const modalContent = document.querySelector('.modal-content');
+            let modalShareBtn = modalContent.querySelector('.modal-share-btn');
+            if (!modalShareBtn) {
+                modalShareBtn = document.createElement('button');
+                modalShareBtn.className = 'modal-share-btn';
+                modalShareBtn.onclick = shareGame;
+                const closeBtn = modalContent.querySelector('.modal-close');
+                modalContent.insertBefore(modalShareBtn, closeBtn);
+            }
+            modalShareBtn.textContent = 'ПОДЕЛИТЬСЯ';
+
             // Добавить инструкцию по установке для Red Dead Redemption
             if (item.id === 30) {
                 modalDescription.innerHTML = `<strong>❗️Инструкция по установке:</strong><br><br>1) Скачайте и установите первый файл игры (APK 1).<br>2) Запустите установленный лаунчер, выдайте все необходимые разрешения и дождитесь распаковки файлов. Закройте лаунчер.<br>3) Скачайте и установите второй файл игры (APK 2) поверх первого.<br>4) Можно запускать игру и наслаждаться геймплеем.<br><br><strong>Описание:</strong> ${item.description || 'Описание недоступно.'}`;
@@ -3205,12 +3279,41 @@
             reqAndroid.textContent = sizeNum > 500 ? '7.0+' : '6.0+';
             reqRAM.textContent = sizeNum > 300 ? '4 GB' : '2 GB';
             reqStorage.textContent = item.downloads;
-            
+
+            window.currentItem = item;
+
             modal.classList.add('active');
         }
 
         function closeModal() {
             document.getElementById('gameInfoModal').classList.remove('active');
+        }
+
+        function shareGame() {
+            const item = window.currentItem;
+            if (navigator.share) {
+                navigator.share({
+                    title: item.name,
+                    text: 'Скачай игру: ' + item.name,
+                    url: item.apk
+                }).catch(console.error);
+            } else {
+                // Fallback: copy to clipboard
+                navigator.clipboard.writeText(item.apk).then(() => {
+                    alert('Ссылка скопирована в буфер обмена');
+                }).catch(() => {
+                    alert('Не удалось скопировать ссылку');
+                });
+            }
+        }
+
+        function shareGameFromCard(id, type) {
+            const items = type === 'game' ? games : apps;
+            const item = items.find(i => i.id === id);
+            if (item) {
+                window.currentItem = item;
+                shareGame();
+            }
         }
 
         function updateModalFavorite(favKey) {
@@ -3928,11 +4031,12 @@
                 : `<button class="get-btn">ПОЛУЧИТЬ</button>`;
             
             const watchBtn = `<button class="watch-btn" onclick="showGameInfo(${item.id}, '${itemType}')">СМОТРЕТЬ</button>`;
+            const shareBtn = `<button class="share-btn" onclick="shareGameFromCard(${item.id}, '${itemType}')" title="Поделиться"><i class="fas fa-share-alt"></i></button>`;
             const isFav = isFavorite(favKey);
             const favoriteBtn = `<button class="fav-btn ${isFav ? 'active' : ''}" onclick="event.stopPropagation(); toggleFavorite('${favKey}')" title="В избранное">
                 <i class="fas fa-star"></i> ${isFav ? 'В избранном' : 'В избранное'}
             </button>`;
-            
+
             return `
                 <div class="app-card" data-category="${item.category}">
                     ${favoriteBtn}
@@ -3951,6 +4055,7 @@
                                 <div class="card-buttons">
                                     ${watchBtn}
                                     ${downloadBtn}
+                                    ${shareBtn}
                                 </div>
                             </div>
                         </div>
