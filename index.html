@@ -2384,6 +2384,20 @@
         </div>
     </div>
 </div>
+<div class="featured-slide" data-slide="43">
+    <img class="featured-slide-bg" src="apk fille/assets/портал.png" alt="CloverPit" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+    <div class="featured-slide-bg" style="background: linear-gradient(135deg, #000000 0%, #585858 100%); display: none;"></div>
+    <div class="featured-slide-gradient"></div>
+    <div class="featured-content">
+        <span class="featured-tag" style="background: var(--neon-green);">TOP</span>
+        <h2 class="featured-title">Portal</h2>
+        <p class="featured-desc">мобильный порт популярной головоломки от студии Valve. Перенесено разработчиком порта Half-Life 2.</p>
+                        <div class="featured-buttons">
+                            <button class="featured-btn" onclick="showGameInfo(38, 'game')">СМОТРЕТЬ</button>
+                            <button class="featured-btn featured-download" onclick="openDownloadModal({apk1:'https://limewire.com/d/fuuyb#PR73th3kRR', apk2:'https://limewire.com/d/dE8Ql#8ersZbS3Ly', apk3:'https://limewire.com/d/MzVPZ#h8E9PpmDO6'})">ПОЛУЧИТЬ</button>
+                        </div>
+    </div>
+</div>
                 </div>
             </div>
             <div class="banner-dots">
@@ -2430,6 +2444,7 @@
                 <span class="banner-dot" data-dot="40"></span>
                 <span class="banner-dot" data-dot="41"></span>
                 <span class="banner-dot" data-dot="42"></span>
+                <span class="banner-dot" data-dot="43"></span>
             </div>
         </section>
 
@@ -2497,9 +2512,21 @@
                     <span class="req-value" id="reqStorage">100 MB</span>
                 </div>
             </div>
-            <a href="" class="modal-download-btn" id="modalDownloadBtn" download>СКАЧАТЬ</a>
-            <a href="" class="modal-download-btn" id="modalDownloadBtn2" download>СКАЧАТЬ 2</a>
+            <a href="" class="modal-download-btn" id="modalDownloadBtn" download>СКАЧАТЬ ФАЙЛ 1</a>
+            <a href="" class="modal-download-btn" id="modalDownloadBtn2" download>СКАЧАТЬ ФАЙЛ 2</a>
+            <a href="" class="modal-download-btn" id="modalDownloadBtn3" download>СКАЧАТЬ ФАЙЛ 3</a>
             <button class="modal-close" onclick="closeModal()">ЗАКРЫТЬ</button>
+        </div>
+    </div>
+
+    <!-- Download Modal -->
+    <div class="modal-overlay" id="downloadModal" onclick="closeDownloadModal()" style="z-index: 1001;">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <h3 style="text-align: center; margin-bottom: 20px; color: var(--neon-cyan);">Скачать файлы</h3>
+            <a href="" class="modal-download-btn" id="downloadBtn1" download>СКАЧАТЬ ФАЙЛ 1</a>
+            <a href="" class="modal-download-btn" id="downloadBtn2" download>СКАЧАТЬ ФАЙЛ 2</a>
+            <a href="" class="modal-download-btn" id="downloadBtn3" download>СКАЧАТЬ ФАЙЛ 3</a>
+            <button class="modal-close" onclick="closeDownloadModal()">ЗАКРЫТЬ</button>
         </div>
     </div>
 
@@ -3043,6 +3070,19 @@
                 apk: "https://limewire.com/d/HM1zk#br5sAtJEB3", 
                 description: "это приключенческая игра, действие которой происходит в океане на другой планете. " 
             },
+            {
+                id: 40,
+                name: "Portal",
+                category: "Puzzles",
+                rating: 4.8,
+                downloads: "16.4 MB",
+                image: "apk fille/assets/портал.png",
+                avatar: "apk fille/assets/ава портала.png",
+                apk1: "https://limewire.com/d/fuuyb#PR73th3kRR",
+                apk2: "https://limewire.com/d/dE8Ql#8ersZbS3Ly",
+                apk3: "https://limewire.com/d/MzVPZ#h8E9PpmDO6",
+                description: "мобильный порт популярной головоломки от студии Valve. Перенесено разработчиком порта Half-Life 2. "
+            },
         ];
 
         const apps = [
@@ -3152,7 +3192,8 @@
             { id: 'strategy', name: 'Стратегии' },
             { id: 'horror', name: 'Хорроры' },
             { id: 'adventures', name: 'Приключения' },
-            { id: 'casual', name: 'Казуальные' }
+            { id: 'casual', name: 'Казуальные' },
+            { id: 'Puzzles', name: 'Головоломки' }
         ];
 
         // Категории для приложений
@@ -3186,6 +3227,7 @@
                 item = games.find(g => g.id === id) || apps.find(a => a.id === id);
             }
             if (!item) return;
+            window.currentItem = item;
             
             const modal = document.getElementById('gameInfoModal');
             const modalIcon = document.getElementById('modalIcon');
@@ -3237,23 +3279,26 @@
             modalSize.textContent = `📁 Размер: ${item.downloads}`;
             modalDescription.textContent = item.description || 'Описание недоступно.';
             
-            if (item.apk && item.apk !== "") {
-                modalDownloadBtn.href = item.apk;
-                modalDownloadBtn.classList.remove('no-apk');
-                modalDownloadBtn.textContent = 'СКАЧАТЬ APK 1';
+            if (item.apk1 || item.apk) {
+                modalDownloadBtn.href = item.apk1 || item.apk;
+                modalDownloadBtn.style.display = 'inline-block';
             } else {
-                modalDownloadBtn.href = '#';
-                modalDownloadBtn.classList.add('no-apk');
-                modalDownloadBtn.textContent = 'ПОЛУЧИТЬ';
+                modalDownloadBtn.style.display = 'none';
             }
-            
-            if (item.apk2 && item.apk2 !== "") {
+
+            if (item.apk2) {
                 modalDownloadBtn2.href = item.apk2;
-                modalDownloadBtn2.classList.remove('no-apk');
                 modalDownloadBtn2.style.display = 'inline-block';
-                modalDownloadBtn2.textContent = 'СКАЧАТЬ APK 2';
             } else {
                 modalDownloadBtn2.style.display = 'none';
+            }
+
+            const modalDownloadBtn3 = document.getElementById('modalDownloadBtn3');
+            if (item.apk3) {
+                modalDownloadBtn3.href = item.apk3;
+                modalDownloadBtn3.style.display = 'inline-block';
+            } else {
+                modalDownloadBtn3.style.display = 'none';
             }
 
             // Add share button
@@ -3288,6 +3333,29 @@
         function closeModal() {
             document.getElementById('gameInfoModal').classList.remove('active');
         }
+
+        function openDownloadModal(item) {
+            const downloadBtn1 = document.getElementById('downloadBtn1');
+            const downloadBtn2 = document.getElementById('downloadBtn2');
+            const downloadBtn3 = document.getElementById('downloadBtn3');
+
+            downloadBtn1.href = item.apk1 || item.apk || '#';
+            downloadBtn1.style.display = (item.apk1 || item.apk) ? 'block' : 'none';
+
+            downloadBtn2.href = item.apk2 || '#';
+            downloadBtn2.style.display = item.apk2 ? 'block' : 'none';
+
+            downloadBtn3.href = item.apk3 || '#';
+            downloadBtn3.style.display = item.apk3 ? 'block' : 'none';
+
+            document.getElementById('downloadModal').classList.add('active');
+        }
+
+        function closeDownloadModal() {
+            document.getElementById('downloadModal').classList.remove('active');
+        }
+
+
 
         function shareGame() {
             const item = window.currentItem;
